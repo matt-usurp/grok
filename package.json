@@ -25,9 +25,5 @@
     "email": "matt.usurp@gmail.com"
   },
   "license": "GPL-3.0-or-later",
-  "main": "index.js",
-  "engines": {
-    "node": ">=16.13.0",
-    "npm": ">=8.1.0"
-  }
+  "main": "index.js"
 }
