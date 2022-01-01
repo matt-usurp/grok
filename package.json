@@ -25,5 +25,12 @@
     "email": "matt.usurp@gmail.com"
   },
   "license": "GPL-3.0-or-later",
-  "main": "index.js"
+  "main": "index.js",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/jest": "^27.4.0",
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
 }

@@ -1,0 +1,36 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+
+  "compilerOptions": {
+    "strict": true,
+    "alwaysStrict": true,
+
+    "declaration": false,
+
+    "allowJs": false,
+    "checkJs": false,
+
+    "sourceMap": true,
+    "removeComments": false,
+    "stripInternal": true,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "preserveConstEnums": true,
+
+    "noErrorTruncation": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noEmit": true,
+
+    "keyofStringsOnly": true,
+  },
+
+  "include": [
+    "build/scripts",
+    "build/scripts/tools",
+    "src",
+  ]
+}
