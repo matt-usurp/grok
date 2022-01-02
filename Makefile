@@ -74,4 +74,4 @@ build.package.verify:
 	package.preview
 
 package.preview:
-	npm publish --dry-run ./${DIR_WORKSPACE}
+	npm publish --access public --dry-run ./${DIR_WORKSPACE}
