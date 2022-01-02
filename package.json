@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "name": "@matt-usurp/grok",
-  "description": "An expressive series of type helpers and utilities",
+  "description": "An expressive series of utilities for language like types",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matt-usurp/grok.git",
