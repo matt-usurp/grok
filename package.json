@@ -1,15 +1,15 @@
 {
   "version": "0.1.0",
-  "name": "ts-grok",
+  "name": "@matt-usurp/grok",
   "description": "An expressive series of type helpers and utilities",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matt-usurp/ts-grok.git",
+    "url": "git+https://github.com/matt-usurp/grok.git",
     "directory": "packages/handler"
   },
-  "homepage": "https://github.com/matt-usurp/ts-grok#readme",
+  "homepage": "https://github.com/matt-usurp/grok#readme",
   "bugs": {
-    "url": "https://github.com/matt-usurp/ts-grok/issues"
+    "url": "https://github.com/matt-usurp/grok/issues"
   },
   "keywords": [
     "typescript",
