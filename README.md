@@ -70,3 +70,7 @@ type MyValue = (
 - `Grok.Value.IsExactly`
 - `Grok.Value.IsTrue`
 - `Grok.Value.IsFalse`
+
+## Functional Helpers
+
+- `never()` (also avaiable at `core/assert-never`) for checking the given value is of `never` type
