@@ -73,4 +73,23 @@ type MyValue = (
 
 ## Functional Helpers
 
-- `never()` (also avaiable at `core/assert-never`) for checking the given value is of `never` type
+A series of modular functional helpers and utilities are exported also:
+
+### `never()`
+
+For use with [union exhaustiveness checking](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-exhaustiveness-checking) which will cause TypeScript to error when the given value is not of type `never`.
+This function simply throws an error of `NeverReachAssertionError` when compiled which should be caught by your error reporting tool of choice.
+
+```ts
+import { never } from '@matt-usurp/grok'
+
+declare const union: 1 | 2
+
+if (union === 1 || union === 2) {
+  // do something
+}
+
+never(union);
+```
+
+Introducing a new value to `union` will cause `never` to raise an error at build time.
