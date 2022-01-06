@@ -7,6 +7,32 @@ const source = {
 };
 
 describe('core/object', (): void => {
+  describe('ObjectKeyMissingError', (): void => {
+    it('with single key, builds single key error', (): void => {
+      const error = new ObjectKeyMissingError('foobar');
+
+      expect(error.name).toStrictEqual('ObjectKeyMissingError');
+      expect(error.message).toStrictEqual('Missing key [foobar] in the source object');
+      expect(error.key).toStrictEqual('foobar');
+    });
+
+    it('with multiple keys, builds multiple key error', (): void => {
+      const error = new ObjectKeyMissingError([
+        'foobar',
+        'another',
+        'something',
+      ]);
+
+      expect(error.name).toStrictEqual('ObjectKeyMissingError');
+      expect(error.message).toStrictEqual('Missing keys [foobar, another, something] in source object');
+      expect(error.key).toStrictEqual([
+        'foobar',
+        'another',
+        'something',
+      ]);
+    });
+  });
+
   describe('okv()', (): void => {
     it('with source empty, key missing, returns undefined', (): void => {
       expect(
