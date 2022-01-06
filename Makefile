@@ -4,6 +4,16 @@ default:
 	#
 
 # ---
+# --- Testing
+# ---
+
+.PHONY: \
+	test
+
+test:
+	npx jest --verbose --colors
+
+# ---
 # --- Package Build
 # ---
 
