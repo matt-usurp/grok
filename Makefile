@@ -85,3 +85,21 @@ build.package.verify:
 
 package.preview:
 	npm publish --access public --dry-run ./${DIR_WORKSPACE}
+
+# ---
+# --- Versioning
+# ---
+
+.PHONY: \
+	version.major \
+	version.minor \
+	version.patch
+
+version.major:
+	npm version --no-git-tag-version major
+
+version.minor:
+	npm version --no-git-tag-version minor
+
+version.patch:
+	npm version --no-git-tag-version patch
