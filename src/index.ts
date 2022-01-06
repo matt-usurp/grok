@@ -1,4 +1,5 @@
 export { never } from './core/assert-never';
+export { okv, okvr } from './core/object';
 
 /**
  * Grok is an expressive series of type helpers and utilities.
