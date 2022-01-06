@@ -81,10 +81,14 @@ build.package.verify:
 # ---
 
 .PHONY: \
-	package.preview
+	package \
+	package.publish
 
-package.preview:
+package:
 	npm publish --access public --dry-run ./${DIR_WORKSPACE}
+
+package.publish:
+	npm publish --access public ./${DIR_WORKSPACE}
 
 # ---
 # --- Versioning
