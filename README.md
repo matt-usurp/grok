@@ -153,3 +153,23 @@ env('SOME_AVAILABLE_VAR');
 env('SOME_UNDEFINED_VAR', fallback);
 env('ANOTHER_UNDEFINED_VAR'); // throws
 ```
+
+# `okey`
+
+Allows for type-safe strings that are keys of an object.
+A functional variant of the `<keyof SomeObject>'name' which cannot be used with `JSX`.
+
+```ts
+import { okey } from '@matt-usurp/grok';
+// or
+import { okey } from '@matt-usurp/grok/core/object';
+
+declare const mapping: {
+  readonly name: string;
+  readonly age?: number;
+}
+
+// the same
+<keyof typeof mapping>'name';
+okey<typeof mapping>('name');
+```

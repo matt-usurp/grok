@@ -96,3 +96,20 @@ export const okvr: ObjectKeyValueFactoryWithEnforcement = (source, enforcement) 
     return value as unknown as any;
   }
 };
+
+/**
+ * Enforce the given value is a key in the type {@link T}.
+ * Functionally this passes the given value back but enforces the value the `keyof T` at build time.
+ *
+ * ```
+ * key<SomeMapping>('foo') // 'foo'
+ * ```
+ *
+ * An alternative to this is using the the `<>` cast on a string.
+ * This is not available within a JSX/TSX file so thats the reason this helper exists.
+ *
+ * ```
+ * <keyof SomeMapping>'foo'
+ * ```
+ */
+export const okey = <T extends Grok.Constraint.ObjectLike>(key: keyof T): keyof T => key;
