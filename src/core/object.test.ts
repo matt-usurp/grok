@@ -13,7 +13,7 @@ describe('core/object', (): void => {
 
       expect(error.name).toStrictEqual('ObjectKeyMissingError');
       expect(error.message).toStrictEqual('Missing key [foobar] in the source object');
-      expect(error.key).toStrictEqual('foobar');
+      expect(error.keys).toStrictEqual(['foobar']);
     });
 
     it('with multiple keys, builds multiple key error', (): void => {
@@ -25,7 +25,7 @@ describe('core/object', (): void => {
 
       expect(error.name).toStrictEqual('ObjectKeyMissingError');
       expect(error.message).toStrictEqual('Missing keys [foobar, another, something] in source object');
-      expect(error.key).toStrictEqual([
+      expect(error.keys).toStrictEqual([
         'foobar',
         'another',
         'something',

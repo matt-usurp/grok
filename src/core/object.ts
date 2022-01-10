@@ -3,22 +3,27 @@ import { Grok } from '../index';
 /**
  * An error thrown when the object is missing a required key.
  */
-export class ObjectKeyMissingError<K extends (string | string[])> extends Error {
-  public readonly key: K;
+export class ObjectKeyMissingError extends Error {
+  public readonly keys: string[];
 
-  public constructor(key: K) {
+  public constructor(keys: string | string[]) {
     let message = '';
 
-    if (typeof key === 'string') {
-      message = `Missing key [${key}] in the source object`;
+    if (typeof keys === 'string') {
+      message = `Missing key [${keys}] in the source object`;
     } else {
-      message = `Missing keys [${key.join(', ')}] in source object`;
+      message = `Missing keys [${keys.join(', ')}] in source object`;
     }
 
     super(message);
 
     this.name = 'ObjectKeyMissingError';
-    this.key = key;
+
+    if (typeof keys === 'string') {
+      this.keys = [keys];
+    } else {
+      this.keys = keys;
+    }
   }
 }
 
