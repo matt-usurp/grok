@@ -1,4 +1,4 @@
-import { ObjectKeyMissingError, okey, okv, okvr } from './object';
+import { ObjectKeyMissingError, okey, okeys, okv, okvr } from './object';
 
 const empty: Record<string, unknown> = {} as unknown as Record<string, unknown>;
 const source = {
@@ -112,6 +112,20 @@ describe('core/object', (): void => {
       expect(
         okey<typeof source>('name'),
       ).toStrictEqual('name');
+    });
+  });
+
+  describe('okeys()', (): void => {
+    it('with union, enforces all values, returns keys', (): void => {
+      expect(
+        okeys<keyof typeof source>({
+          name: undefined,
+          age: undefined,
+        }),
+      ).toStrictEqual([
+        'name',
+        'age',
+      ]);
     });
   });
 });

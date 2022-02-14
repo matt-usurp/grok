@@ -154,7 +154,7 @@ env('SOME_UNDEFINED_VAR', fallback);
 env('ANOTHER_UNDEFINED_VAR'); // throws
 ```
 
-# `okey`
+### `okey`
 
 Allows for type-safe strings that are keys of an object.
 A functional variant of the `<keyof SomeObject>'name' which cannot be used with `JSX`.
@@ -172,4 +172,25 @@ declare const mapping: {
 // the same
 <keyof typeof mapping>'name';
 okey<typeof mapping>('name');
+```
+
+### `okeys`
+
+A unique utility for times where you want to convert a union type of strings to an array of strings at runtime.
+This is done by forcing the keys to be defined through a mapping that can be enforced at compile time.
+Unlike using `MyUnion[]` which does not enforce all values are present within the array.
+
+```ts
+import { okeys } from '@matt-usurp/grok';
+// or
+import { okeys } from '@matt-usurp/grok/core/object';
+
+type MyUnion = 'name' | 'age';
+
+const keys = okeys<MyUnion>({
+  name: undefined,
+  age: undefined,
+});
+
+keys; // ['name', 'age']
 ```
