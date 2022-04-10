@@ -1,4 +1,5 @@
 import { ObjectKeyMissingError, okey, okeys, okv, okvr } from './object';
+import { KeyValueNotValidError } from './value';
 
 const empty: Record<string, unknown> = {} as unknown as Record<string, unknown>;
 const source = {
@@ -103,6 +104,42 @@ describe('okvr()', (): void => {
     expect(
       okvr(source, ['name', 'age'])('name'),
     ).toStrictEqual('jane');
+  });
+
+  it('with source, key not enforced, validator function provided, valid, returns value', (): void => {
+    expect(
+      okvr(source, [], (value: string) => value.length === 4)('name'),
+    ).toStrictEqual('jane');
+  });
+
+  it('with source, key not enforced, validator function provided, invalid, returns value', (): void => {
+    expect(
+      okvr(source, [], (value: string) => value === 'bob')('name'),
+    ).toStrictEqual('jane');
+  });
+
+  it('with source, key enforced, validator function provided, valid, returns value', (): void => {
+    expect(
+      okvr(source, ['name'], (value: string) => value.length === 4)('name'),
+    ).toStrictEqual('jane');
+  });
+
+  it('with source, key enforced, validator function provided, invalid, throws error', (): void => {
+    expect(
+      () => okvr(source, ['name'], (value: string) => value === 'bob')('name'),
+    ).toThrowError(KeyValueNotValidError);
+  });
+
+  it('with source, key enforced globally, validator function provided, valid, returns value', (): void => {
+    expect(
+      okvr(source, undefined, (value: string) => value.length === 4)('name'),
+    ).toStrictEqual('jane');
+  });
+
+  it('with source, key enforced globally, validator function provided, invalid, throws error', (): void => {
+    expect(
+      () => okvr(source, undefined, (value: string) => value === 'bob')('name'),
+    ).toThrowError(KeyValueNotValidError);
   });
 });
 

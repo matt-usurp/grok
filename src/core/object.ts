@@ -1,4 +1,5 @@
 import { Grok } from '../index';
+import { KeyValueNotValidError, ValueValidatorFunction } from './value';
 
 /**
  * An error thrown when the object is missing a required key.
@@ -30,7 +31,7 @@ export class ObjectKeyMissingError extends Error {
 export type ObjectKeyValueAccessor<M extends Grok.Constraint.ObjectLike> = <K extends keyof M>(key: K, fallback?: M[K]) => M[K];
 
 export type ObjectKeyValueFactory = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>) => ObjectKeyValueAccessor<M>;
-export type ObjectKeyValueFactoryWithEnforcement = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>, enforce?: string[]) => ObjectKeyValueAccessor<M>;
+export type ObjectKeyValueFactoryWithEnforcement = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>, enforce?: string[], validator?: ValueValidatorFunction<Grok.Constraint.Anything>) => ObjectKeyValueAccessor<M>;
 
 /**
  * Retrieve values by key from an object with type safety.
@@ -72,30 +73,39 @@ export const okv: ObjectKeyValueFactory = (source) => {
  * When the `enforcement` parameter is a `string[]` is provided the requirement check is done instantly.
  * Otherwise they requirement check is done when the `key` is provided to the accessor.
  */
-export const okvr: ObjectKeyValueFactoryWithEnforcement = (source, enforcement) => {
+export const okvr: ObjectKeyValueFactoryWithEnforcement = (source, enforcement, validator) => {
   let required = false;
+  let enforcements: string[] = [];
 
   if (Array.isArray(enforcement)) {
-    const missing: string[] = [];
-
-    for (const key of enforcement) {
-      if (source[key] === undefined) {
-        missing.push(key);
-      }
-    }
-
-    if (missing.length !== 0) {
-      throw new ObjectKeyMissingError(missing);
-    }
+    enforcements = enforcement;
   } else {
     required = true;
+  }
+
+  const missing: string[] = [];
+
+  for (const key of enforcements) {
+    if (source[key] === undefined) {
+      missing.push(key);
+    }
+  }
+
+  if (missing.length > 0) {
+    throw new ObjectKeyMissingError(missing);
   }
 
   return (key, fallback) => {
     const value = source[key] ?? fallback;
 
-    if (required === true && value === undefined) {
-      throw new ObjectKeyMissingError(key);
+    if (required === true || enforcements.includes(key) === true) {
+      if (value === undefined) {
+        throw new ObjectKeyMissingError(key);
+      }
+
+      if (validator && validator(value) === false) {
+        throw new KeyValueNotValidError(key);
+      }
     }
 
     return value as unknown as any;
