@@ -74,36 +74,47 @@ export const okv: ObjectKeyValueFactory = (source) => {
  * Otherwise they requirement check is done when the `key` is provided to the accessor.
  */
 export const okvr: ObjectKeyValueFactoryWithEnforcement = (source, enforcement, validator) => {
-  let required = false;
+  let globally = false;
   let enforcements: string[] = [];
 
   if (Array.isArray(enforcement)) {
     enforcements = enforcement;
   } else {
-    required = true;
+    globally = true;
   }
 
-  const missing: string[] = [];
+  if (enforcements.length > 0) {
+    const missing: string[] = [];
+    const invalid: string[] = [];
 
-  for (const key of enforcements) {
-    if (source[key] === undefined) {
-      missing.push(key);
+    for (const key of enforcements) {
+      const value = source[key];
+
+      if (value === undefined) {
+        missing.push(key);
+      } else if (validator !== undefined && validator(value) === false) {
+        invalid.push(key);
+      }
     }
-  }
 
-  if (missing.length > 0) {
-    throw new ObjectKeyMissingError(missing);
+    if (missing.length > 0) {
+      throw new ObjectKeyMissingError(missing);
+    }
+
+    if (invalid.length > 0) {
+      throw new KeyValueNotValidError(invalid);
+    }
   }
 
   return (key, fallback) => {
     const value = source[key] ?? fallback;
 
-    if (required === true || enforcements.includes(key) === true) {
-      if (value === undefined) {
-        throw new ObjectKeyMissingError(key);
-      }
+    if (globally === true && value === undefined) {
+      throw new ObjectKeyMissingError(key);
+    }
 
-      if (validator && validator(value) === false) {
+    if (globally === true || enforcements.includes(key) === true) {
+      if (validator !== undefined && validator(value) === false) {
         throw new KeyValueNotValidError(key);
       }
     }

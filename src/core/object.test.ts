@@ -70,75 +70,75 @@ describe('okv()', (): void => {
 });
 
 describe('okvr()', (): void => {
-  it('with source empty, enforcement all, key missing, throws error', (): void => {
+  it('with source empty, enforcement globally, key missing, throws error', (): void => {
     expect(
       () => okvr(empty)('missing-key'),
     ).toThrowError(ObjectKeyMissingError);
   });
 
-  it('with source empty, enforcement all, key missing, fallback defined, returns fallback', (): void => {
+  it('with source empty, enforcement globally, key missing, fallback defined, returns fallback', (): void => {
     expect(
       okvr(empty)('missing-key', 'another-fallback'),
     ).toStrictEqual('another-fallback');
   });
 
-  it('with source empty, enforcement string[], throws error', (): void => {
+  it('with source empty, enforcement provided, throws error', (): void => {
     expect(
       () => okvr(empty, ['name']),
     ).toThrowError(ObjectKeyMissingError);
   });
 
-  it('with source, enforcement string[], key missing, throws error', (): void => {
+  it('with source, enforcement provided, key missing, throws error', (): void => {
     expect(
       () => okvr(source, ['something']),
     ).toThrowError(ObjectKeyMissingError);
   });
 
-  it('with source, enforcement string[], keys available, key missing, fallback defined, returns fallback', (): void => {
+  it('with source, enforcement provided, keys available, key missing, fallback defined, returns fallback', (): void => {
     expect(
       okvr(source, ['name'])('missing-key' as 'name', 'another-fallback'),
     ).toStrictEqual('another-fallback');
   });
 
-  it('with source, enforcement string[], keys available, key found, returns value', (): void => {
+  it('with source, enforcement provided, keys available, key found, returns value', (): void => {
     expect(
       okvr(source, ['name', 'age'])('name'),
     ).toStrictEqual('jane');
   });
 
-  it('with source, key not enforced, validator function provided, valid, returns value', (): void => {
+  it('with source, enforcement provided, key not enforced, validator function provided, valid, returns value', (): void => {
     expect(
-      okvr(source, [], (value: string) => value.length === 4)('name'),
+      okvr(source, [], () => false)('name'),
     ).toStrictEqual('jane');
   });
 
-  it('with source, key not enforced, validator function provided, invalid, returns value', (): void => {
+  it('with source, enforcement provided, key not enforced, validator function provided, invalid, returns value', (): void => {
     expect(
-      okvr(source, [], (value: string) => value === 'bob')('name'),
+      okvr(source, [], () => true)('name'),
     ).toStrictEqual('jane');
   });
 
-  it('with source, key enforced, validator function provided, valid, returns value', (): void => {
+  it('with source, enforcement provided, key enforced, validator function provided, valid, returns value', (): void => {
     expect(
-      okvr(source, ['name'], (value: string) => value.length === 4)('name'),
+      okvr(source, ['name'], () => true)('name'),
     ).toStrictEqual('jane');
   });
 
-  it('with source, key enforced, validator function provided, invalid, throws error', (): void => {
+  it('with source, enforcement provided, key enforced, validator function provided, invalid, throws error', (): void => {
     expect(
-      () => okvr(source, ['name'], (value: string) => value === 'bob')('name'),
+      () => okvr(source, ['name'], () => false)('name'),
     ).toThrowError(KeyValueNotValidError);
   });
 
-  it('with source, key enforced globally, validator function provided, valid, returns value', (): void => {
+  it('with source, enforcement globally, validator function provided, valid, returns value', (): void => {
     expect(
-      okvr(source, undefined, (value: string) => value.length === 4)('name'),
+      okvr(source, undefined, () => true)('name'),
     ).toStrictEqual('jane');
   });
 
-  it('with source, key enforced globally, validator function provided, invalid, throws error', (): void => {
+  it('with source, enforcement globally, validator function provided, invalid, throws error', (): void => {
     expect(
-      () => okvr(source, undefined, (value: string) => value === 'bob')('name'),
+      () => okvr(source, undefined, () => false)('name'),
     ).toThrowError(KeyValueNotValidError);
   });
 });

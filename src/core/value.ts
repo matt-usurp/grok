@@ -2,13 +2,26 @@
  * An error thrown when the value of a given key is not considered valid.
  */
 export class KeyValueNotValidError extends Error {
-  public readonly key: string;
+  public readonly keys: string[];
 
-  public constructor(key: string) {
-    super(`The value for key [${key}] is not valid`);
+  public constructor(keys: string | string[]) {
+    let message = '';
+
+    if (typeof keys === 'string') {
+      message = `The value for key [${keys}] is not valid`;
+    } else {
+      message = `The value for keys [${keys.join(', ')}] is not valid`;
+    }
+
+    super(message);
 
     this.name = 'KeyValueNotValidError';
-    this.key = key;
+
+    if (typeof keys === 'string') {
+      this.keys = [keys];
+    } else {
+      this.keys = keys;
+    }
   }
 }
 
