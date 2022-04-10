@@ -6,126 +6,124 @@ const source = {
   age: 25,
 };
 
-describe('core/object', (): void => {
-  describe('ObjectKeyMissingError', (): void => {
-    it('with single key, builds single key error', (): void => {
-      const error = new ObjectKeyMissingError('foobar');
+describe('ObjectKeyMissingError', (): void => {
+  it('with single key, builds single key error', (): void => {
+    const error = new ObjectKeyMissingError('foobar');
 
-      expect(error.name).toStrictEqual('ObjectKeyMissingError');
-      expect(error.message).toStrictEqual('Missing key [foobar] in the source object');
-      expect(error.keys).toStrictEqual(['foobar']);
-    });
-
-    it('with multiple keys, builds multiple key error', (): void => {
-      const error = new ObjectKeyMissingError([
-        'foobar',
-        'another',
-        'something',
-      ]);
-
-      expect(error.name).toStrictEqual('ObjectKeyMissingError');
-      expect(error.message).toStrictEqual('Missing keys [foobar, another, something] in source object');
-      expect(error.keys).toStrictEqual([
-        'foobar',
-        'another',
-        'something',
-      ]);
-    });
+    expect(error.name).toStrictEqual('ObjectKeyMissingError');
+    expect(error.message).toStrictEqual('Missing key [foobar] in the source object');
+    expect(error.keys).toStrictEqual(['foobar']);
   });
 
-  describe('okv()', (): void => {
-    it('with source empty, key missing, returns undefined', (): void => {
-      expect(
-        okv(empty)('some-key'),
-      ).toStrictEqual(undefined);
-    });
+  it('with multiple keys, builds multiple key error', (): void => {
+    const error = new ObjectKeyMissingError([
+      'foobar',
+      'another',
+      'something',
+    ]);
 
-    it('with source empty, key missing, fallback defined, returns fallback', (): void => {
-      expect(
-        okv(empty)('another-key', 'some-fallback'),
-      ).toStrictEqual('some-fallback');
-    });
+    expect(error.name).toStrictEqual('ObjectKeyMissingError');
+    expect(error.message).toStrictEqual('Missing keys [foobar, another, something] in source object');
+    expect(error.keys).toStrictEqual([
+      'foobar',
+      'another',
+      'something',
+    ]);
+  });
+});
 
-    it('with source, key missing, returns undefined', (): void => {
-      expect(
-        okv(source)('unknown-key' as 'name'),
-      ).toStrictEqual(undefined);
-    });
-
-    it('with source, key missing, fallback defined, returns fallback', (): void => {
-      expect(
-        okv(source)('missing-key' as 'name', 'fallback-value'),
-      ).toStrictEqual('fallback-value');
-    });
-
-    it('with source, key found, returns value', (): void => {
-      expect(
-        okv(source)('name'),
-      ).toStrictEqual('jane');
-
-      expect(
-        okv(source)('age'),
-      ).toStrictEqual(25);
-    });
+describe('okv()', (): void => {
+  it('with source empty, key missing, returns undefined', (): void => {
+    expect(
+      okv(empty)('some-key'),
+    ).toStrictEqual(undefined);
   });
 
-  describe('okvr()', (): void => {
-    it('with source empty, enforcement all, key missing, throws error', (): void => {
-      expect(
-        () => okvr(empty)('missing-key'),
-      ).toThrowError(ObjectKeyMissingError);
-    });
-
-    it('with source empty, enforcement all, key missing, fallback defined, returns fallback', (): void => {
-      expect(
-        okvr(empty)('missing-key', 'another-fallback'),
-      ).toStrictEqual('another-fallback');
-    });
-
-    it('with source empty, enforcement string[], throws error', (): void => {
-      expect(
-        () => okvr(empty, ['name']),
-      ).toThrowError(ObjectKeyMissingError);
-    });
-
-    it('with source, enforcement string[], key missing, throws error', (): void => {
-      expect(
-        () => okvr(source, ['something']),
-      ).toThrowError(ObjectKeyMissingError);
-    });
-
-    it('with source, enforcement string[], keys available, key missing, fallback defined, returns fallback', (): void => {
-      expect(
-        okvr(source, ['name'])('missing-key' as 'name', 'another-fallback'),
-      ).toStrictEqual('another-fallback');
-    });
-
-    it('with source, enforcement string[], keys available, key found, returns value', (): void => {
-      expect(
-        okvr(source, ['name', 'age'])('name'),
-      ).toStrictEqual('jane');
-    });
+  it('with source empty, key missing, fallback defined, returns fallback', (): void => {
+    expect(
+      okv(empty)('another-key', 'some-fallback'),
+    ).toStrictEqual('some-fallback');
   });
 
-  describe('okey()', (): void => {
-    it('with object, key type enforced, returns key', (): void => {
-      expect(
-        okey<typeof source>('name'),
-      ).toStrictEqual('name');
-    });
+  it('with source, key missing, returns undefined', (): void => {
+    expect(
+      okv(source)('unknown-key' as 'name'),
+    ).toStrictEqual(undefined);
   });
 
-  describe('okeys()', (): void => {
-    it('with union, enforces all values, returns keys', (): void => {
-      expect(
-        okeys<keyof typeof source>({
-          name: undefined,
-          age: undefined,
-        }),
-      ).toStrictEqual([
-        'name',
-        'age',
-      ]);
-    });
+  it('with source, key missing, fallback defined, returns fallback', (): void => {
+    expect(
+      okv(source)('missing-key' as 'name', 'fallback-value'),
+    ).toStrictEqual('fallback-value');
+  });
+
+  it('with source, key found, returns value', (): void => {
+    expect(
+      okv(source)('name'),
+    ).toStrictEqual('jane');
+
+    expect(
+      okv(source)('age'),
+    ).toStrictEqual(25);
+  });
+});
+
+describe('okvr()', (): void => {
+  it('with source empty, enforcement all, key missing, throws error', (): void => {
+    expect(
+      () => okvr(empty)('missing-key'),
+    ).toThrowError(ObjectKeyMissingError);
+  });
+
+  it('with source empty, enforcement all, key missing, fallback defined, returns fallback', (): void => {
+    expect(
+      okvr(empty)('missing-key', 'another-fallback'),
+    ).toStrictEqual('another-fallback');
+  });
+
+  it('with source empty, enforcement string[], throws error', (): void => {
+    expect(
+      () => okvr(empty, ['name']),
+    ).toThrowError(ObjectKeyMissingError);
+  });
+
+  it('with source, enforcement string[], key missing, throws error', (): void => {
+    expect(
+      () => okvr(source, ['something']),
+    ).toThrowError(ObjectKeyMissingError);
+  });
+
+  it('with source, enforcement string[], keys available, key missing, fallback defined, returns fallback', (): void => {
+    expect(
+      okvr(source, ['name'])('missing-key' as 'name', 'another-fallback'),
+    ).toStrictEqual('another-fallback');
+  });
+
+  it('with source, enforcement string[], keys available, key found, returns value', (): void => {
+    expect(
+      okvr(source, ['name', 'age'])('name'),
+    ).toStrictEqual('jane');
+  });
+});
+
+describe('okey()', (): void => {
+  it('with object, key type enforced, returns key', (): void => {
+    expect(
+      okey<typeof source>('name'),
+    ).toStrictEqual('name');
+  });
+});
+
+describe('okeys()', (): void => {
+  it('with union, enforces all values, returns keys', (): void => {
+    expect(
+      okeys<keyof typeof source>({
+        name: undefined,
+        age: undefined,
+      }),
+    ).toStrictEqual([
+      'name',
+      'age',
+    ]);
   });
 });
