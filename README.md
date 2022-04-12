@@ -139,6 +139,10 @@ okvr(mapping)('name')
 // an error is thrown if fallback was undefined also.
 okvr(mapping)('name', fallback)
 
+// custom validator function is provided checking values are not null also
+// mapping.age is verified, an error is thrown if its undefined or null (validator function)
+okvr(mapping, ['age'], (v) => v !== null)
+
 // mapping.age is verified, an error is thrown if its undefined
 // mapping.name can be undefined, and fallback can be used.
 okvr(mapping, ['age'])('name', fallback)
