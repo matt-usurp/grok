@@ -18,12 +18,14 @@ export class NeverReachAssertionError extends Error {
   }
 }
 
+export type NeverAssertFunction = (value?: never) => void;
+
 /**
  * Assert a line is never reached.
  *
  * When executed a {@link NeverReachAssertionError} is thrown.
  * The given value will mentioned in the thrown error (encoded as json).
  */
-export const never = (value?: never): void => {
+export const never: NeverAssertFunction = (value) => {
   throw new NeverReachAssertionError(value);
 };
