@@ -198,3 +198,51 @@ const keys = okeys<MyUnion>({
 
 keys; // ['name', 'age']
 ```
+
+## Testing Helpers
+
+A series of helpers and utlities for enriching your testing experience with `jest` or `ts-jest`.
+
+### `fn`
+
+An extension on `jest.fn()` that allows you to pass your function type as the generic and it will resolve the arguments and result for you.
+
+```ts
+import { fn } from '@matt-usurp/grok/testing';
+
+type MyFunction = (age: number) => boolean;
+
+const mock = fn<MyFunction>();
+
+mock; // Mock<boolean, [age: number]>
+
+expect(mock).toBeCalledTimes(0);
+```
+
+### `instance`
+
+A utiltity that disguises an object as the given type `T`. Optionally you can provide a `string[]` of functions and they will be automatically set using `fn()` above.
+
+> Note, this is a disguise and all properties are `undefined` unless set manually after calling.
+> This function is inteded to minimise the amount of type casting and boiler plate needed for creating simplistic mocks of complex classes or types.
+
+```ts
+import { instance } from '@matt-usurp/grok/testing';
+
+class Person {
+  public readonly name: string;
+  public readonly age: number;
+
+  public speak(): void { .. };
+  public walk(steps: number): boolean { .. };
+};
+
+const value = instance<Person>([
+  'speak',
+]);
+
+value; // { speak: Mock }
+value.speak(); // returns undefined
+
+expect(value.speak).toBeCalledTimes(1);
+```
