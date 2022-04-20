@@ -47,7 +47,7 @@ export type InstanceMockFunctions<T> = {
 /**
  * Create an instance mock.
  *
- * A simplistic impleemntation of a mock that satisfies the types but doesn't define the properties.
+ * A simplistic implemntation of a mock that satisfies the types but doesn't define the properties.
  * The given keys allow for instances of {@link FunctionMock} to be created as those keys.
  *
  */
@@ -64,3 +64,12 @@ export const instance = <T>(keys?: InstanceMockFunctions<T>[]): InstanceMock<T> 
 
   return mock;
 };
+
+/**
+ * A partial object that is disguised to be the full object.
+ *
+ * This function is intended for testing and will cause errors within production code.
+ */
+export const partial = <T extends Grok.Constraint.ObjectLike>(value: Partial<T>): T => {
+  return value as T;
+}

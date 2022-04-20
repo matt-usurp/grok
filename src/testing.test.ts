@@ -1,4 +1,4 @@
-import { fn, instance } from './testing';
+import { fn, instance, partial } from './testing';
 
 describe('fn()', (): void => {
   it('with given type, returns mockable function with same types', (): void => {
@@ -90,5 +90,21 @@ describe('instance()', (): void => {
     expect(value.speak).toBeCalledTimes(2);
     expect(value.walk).toBeCalledTimes(1);
     expect(value.walk).toBeCalledWith(50);
+  });
+});
+
+describe('partial()', (): void => {
+  it('with object, creates partial object, disguised', (): void => {
+    type TestObject = {
+      readonly name: string;
+      readonly age: string;
+    };
+
+    const value = partial<TestObject>({
+      name: 'foo',
+    });
+
+    expect(value.name).toStrictEqual('foo');
+    expect(value.age).toStrictEqual(undefined);
   });
 });
