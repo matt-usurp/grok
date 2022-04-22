@@ -79,6 +79,22 @@ type MyValue = (
 
 ## Functional Helpers
 
+- `never()` a `never` assertion
+- `okv()` a key accessor
+- `okvr()` a key accessor with validation and requirements
+- `okey()` a type `keyof` assistance
+- `okeys()` a union value enforcement
+
+## Testing Helpers
+
+- `fn()` a mocking utility for functions of `T`
+- `instance()` a mocking utility for objects of `T`
+- `partial()` a `Partial<T>` to `T` disguise
+
+# Documentation
+
+## Functional Helpers
+
 A series of modular functional helpers and utilities are available also.
 These are all exported from the main entrypoint and as a modular path export that will allow for better tree shaking.
 
