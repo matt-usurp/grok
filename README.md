@@ -246,3 +246,28 @@ value.speak(); // returns undefined
 
 expect(value.speak).toBeCalledTimes(1);
 ```
+
+### `partial`
+
+This is a utility that works similar to `instance()` but in a more simplified way, it can be better expressed through the type `<T>(in: Partial<T>) => T`.
+Again, this is intended for use with testing where a full `T` is needed but your test is asserting just a `Partial<T>`.
+
+> This is intended more of a utility around types not less about functionality.
+
+```ts
+import { partial } from '@matt-usurp/grok/testing';
+
+type Person = {
+  readonly name: string;
+  readonly age: number;
+  readonly gender: unknown;
+}
+
+const value = partial<Person>({
+  name: 'Tony Stark',
+});
+
+value; // Person
+value.name; // 'Tony Stark'
+value.age; // undefined
+```
