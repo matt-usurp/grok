@@ -83,7 +83,7 @@ type MyValue = (
 - `okv()` a key accessor
 - `okvr()` a key accessor with validation and requirements
 - `okey()` a type `keyof` assistance
-- `okeys()` a union value enforcement
+- `union()` a union value enforcement
 
 ## Testing Helpers
 
@@ -200,25 +200,25 @@ declare const mapping: {
 okey<typeof mapping>('name');
 ```
 
-### `okeys`
+### `union`
 
-A unique utility for times where you want to convert a union type of strings to an array of strings at runtime.
-This is done by forcing the keys to be defined through a mapping that can be enforced at compile time.
+A unique utility for times where you want to convert a union of strings to a `string[]` at runtime.
+This is done by forcing the values to be defined through a mapping that can be enforced at compile time.
 Unlike using `MyUnion[]` which does not enforce all values are present within the array.
 
 ```ts
-import { okeys } from '@matt-usurp/grok';
+import { union } from '@matt-usurp/grok';
 // or
-import { okeys } from '@matt-usurp/grok/core/object';
+import { union } from '@matt-usurp/grok/core/value';
 
 type MyUnion = 'name' | 'age';
 
-const keys = okeys<MyUnion>({
+const values = union<MyUnion>({
   name: undefined,
   age: undefined,
 });
 
-keys; // ['name', 'age']
+values; // ['name', 'age']
 ```
 
 ## Testing Helpers

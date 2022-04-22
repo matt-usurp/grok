@@ -29,3 +29,13 @@ export class KeyValueNotValidError extends Error {
  * A validator that takes the given value and asserts that it is considered valid.
  */
 export type ValueValidatorFunction<T> = (value: T) => boolean;
+
+/**
+ * A type that enforces all members of union through a mapping.
+ *
+ * This type is used to enforce all values within an union are defined, this is done by making a mapping of them.
+ * The values of this are ignored, but done because its difficult to enforce all values within a union.
+ */
+export type UnionKeyEnforcementMapping<K extends string> = Record<K, undefined>;
+
+export const union = <T extends string>(keys: UnionKeyEnforcementMapping<T>): T[] => Object.keys(keys) as T[];

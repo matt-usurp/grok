@@ -1,4 +1,9 @@
-import { KeyValueNotValidError } from './value';
+import { KeyValueNotValidError, union } from './value';
+
+const source = {
+  name: 'jane',
+  age: 25,
+};
 
 describe('KeyValueNotValidError', (): void => {
   it('with single key, builds single key error', (): void => {
@@ -22,6 +27,20 @@ describe('KeyValueNotValidError', (): void => {
       'foobar',
       'another',
       'something',
+    ]);
+  });
+});
+
+describe('union()', (): void => {
+  it('with union, enforces all values, returns keys', (): void => {
+    expect(
+      union<keyof typeof source>({
+        name: undefined,
+        age: undefined,
+      }),
+    ).toStrictEqual([
+      'name',
+      'age',
     ]);
   });
 });

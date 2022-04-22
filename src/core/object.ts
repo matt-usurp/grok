@@ -139,13 +139,3 @@ export const okvr: ObjectKeyValueFactoryWithEnforcement = (source, enforcement, 
  * ```
  */
 export const okey = <T extends Grok.Constraint.ObjectLike>(key: keyof T): keyof T => key;
-
-/**
- * A type that enforces a mapping of the given keys against a noop value.
- *
- * This type is used to enforce all values within an union are defined, this is done by making a mapping of them.
- * The values of this are ignored, but done because its difficult to enforce all values within a union.
- */
-export type ObjectKeyEnforcementMapping<K extends string> = Record<K, undefined>;
-
-export const okeys = <T extends string>(keys: ObjectKeyEnforcementMapping<T>): T[] => Object.keys(keys) as T[];
