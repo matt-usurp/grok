@@ -70,6 +70,6 @@ export const instance = <T>(keys?: InstanceMockFunctions<T>[]): InstanceMock<T> 
  *
  * This function is intended for testing and will cause errors within production code.
  */
-export const partial = <T extends Grok.Constraint.ObjectLike>(value: Partial<T>): T => {
+export const partial = <T>(value: Partial<T>): T => {
   return value as T;
 }
