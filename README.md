@@ -71,6 +71,12 @@ type MyValue = (
 - `Grok.Value.IsTrue`
 - `Grok.Value.IsFalse`
 
+## Constraint Helpers
+
+- `Grok.Constraint.ObjectLike` (defined as `Record<string, unknown>`)
+- `Grok.Constraint.FunctionLike` (defined as `(...args: any[]) => any`)
+- `Grok.Constraint.Anything` (defined as alias for `any`)
+
 ## Functional Helpers
 
 A series of modular functional helpers and utilities are available also.
