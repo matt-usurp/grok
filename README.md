@@ -77,6 +77,10 @@ type MyValue = (
 - `Grok.Constraint.FunctionLike` (defined as `(...args: any[]) => any`)
 - `Grok.Constraint.Anything` (defined as alias for `any`)
 
+## Utility Helpers
+
+- `Mutable` (opposite of `Readonly`)
+
 ## Functional Helpers
 
 - `never()` a `never` assertion

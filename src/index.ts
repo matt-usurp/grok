@@ -3,6 +3,13 @@ export { okey, okv, okvr } from './core/object';
 export { union } from './core/value';
 
 /**
+ * A utility to remove `readonly` modifiers from the given {@link T}.
+ */
+export type Mutable<T extends Grok.Constraint.ObjectLike> = {
+  -readonly [P in keyof T]: T[P];
+}
+
+/**
  * Grok is an expressive series of type helpers and utilities.
  */
 export namespace Grok {
