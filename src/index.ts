@@ -3,6 +3,11 @@ export { okey, okv, okvr } from './core/object';
 export { union } from './core/value';
 
 /**
+ * A utility to add `undefined` as a possible value to {@link T}.
+ */
+export type Maybe<T> = T | undefined;
+
+/**
  * A utility to add `null` as a possible value to {@link T}.
  */
 export type Nullable<T> = T | null;

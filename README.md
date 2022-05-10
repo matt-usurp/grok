@@ -79,8 +79,9 @@ type MyValue = (
 
 ## Utility Helpers
 
-- `Nullable` (opposite of `NonNullable` in `typescript`)
-- `Mutable` (opposite of `Readonly` in `typescript`)
+- `Maybe` to add `undefined` (opposite of `NonNullable` in `typescript` core)
+- `Nullable` to add `null` (opposite of `NonNullable` in `typescript` core)
+- `Mutable` to remove `readonly` (opposite of `Readonly` in `typescript` core)
 
 ## Functional Helpers
 
