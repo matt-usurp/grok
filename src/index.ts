@@ -1,6 +1,6 @@
 export { never } from './core/assert-never';
 export { okey, okv, okvr } from './core/object';
-export { union } from './core/value';
+export { provide, union } from './core/value';
 
 /**
  * A utility to add `undefined` as a possible value to {@link T}.
@@ -18,6 +18,11 @@ export type Nullable<T> = T | null;
 export type Mutable<T extends Grok.Constraint.ObjectLike> = {
   -readonly [P in keyof T]: T[P];
 }
+
+/**
+ * A function that when called returns the type {@link T}.
+ */
+ export type Provider<T> = () => T;
 
 /**
  * Grok is an expressive series of type helpers and utilities.

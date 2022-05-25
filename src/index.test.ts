@@ -1,6 +1,6 @@
 import { never } from './core/assert-never';
 import { okey, okv, okvr } from './core/object';
-import { union } from './core/value';
+import { provide, union } from './core/value';
 import * as index from './index';
 
 describe('exports', (): void => {
@@ -14,4 +14,5 @@ describe('exports', (): void => {
 
   // core/value
   it('exports union', () => expect(index.union).toStrictEqual(union));
+  it('exports provide', () => expect(index.provide).toStrictEqual(provide));
 });

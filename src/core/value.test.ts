@@ -1,4 +1,4 @@
-import { KeyValueNotValidError, union } from './value';
+import { KeyValueNotValidError, provide, union } from './value';
 
 const source = {
   name: 'jane',
@@ -42,5 +42,13 @@ describe('union()', (): void => {
       'name',
       'age',
     ]);
+  });
+});
+
+describe('provide()', (): void => {
+  it('with value, returns provider for value', (): void => {
+    expect(
+      provide('foo')(),
+    ).toStrictEqual('foo');
   });
 });

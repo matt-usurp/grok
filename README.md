@@ -82,6 +82,7 @@ type MyValue = (
 - `Maybe` to add `undefined` (opposite of `NonNullable` in `typescript` core)
 - `Nullable` to add `null` (opposite of `NonNullable` in `typescript` core)
 - `Mutable` to remove `readonly` (opposite of `Readonly` in `typescript` core)
+- `Provider<T>` to represent a function like `() => T`
 
 ## Functional Helpers
 
@@ -90,6 +91,7 @@ type MyValue = (
 - `okvr()` a key accessor with validation and requirements
 - `okey()` a type `keyof` assistance
 - `union()` a union value enforcement
+- 'provide()` a helper for creation `Provider<T>`
 
 ## Testing Helpers
 
@@ -225,6 +227,21 @@ const values = union<MyUnion>({
 });
 
 values; // ['name', 'age']
+```
+
+### `provide`
+
+A utility that creates functions that are compatible with a `Provider<T>`.
+A `Provider<T>` is a essentially a value wrapped in a function with no parameters.
+
+```ts
+import { provide } from '@matt-usurp/grok'
+// or
+import { provide } from '@matt-usurp/grok/core/value';
+
+const age = provide(30)
+
+age(); // 30
 ```
 
 ## Testing Helpers

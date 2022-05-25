@@ -1,3 +1,5 @@
+import type { Provider } from '../index';
+
 /**
  * An error thrown when the value of a given key is not considered valid.
  */
@@ -39,3 +41,8 @@ export type ValueValidatorFunction<T> = (value: T) => boolean;
 export type UnionKeyEnforcementMapping<K extends string> = Record<K, undefined>;
 
 export const union = <T extends string>(keys: UnionKeyEnforcementMapping<T>): T[] => Object.keys(keys) as T[];
+
+/**
+ * Create a provider from the given value.
+ */
+export const provide = <T>(value: T): Provider<T> => () => value;
