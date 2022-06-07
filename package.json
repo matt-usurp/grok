@@ -4,8 +4,7 @@
   "description": "An expressive series of utilities for language like types",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matt-usurp/grok.git",
-    "directory": "packages/handler"
+    "url": "git+https://github.com/matt-usurp/grok.git"
   },
   "homepage": "https://github.com/matt-usurp/grok#readme",
   "bugs": {
@@ -20,12 +19,19 @@
     "assert",
     "testing"
   ],
-  "author": {
-    "name": "Matthew Rose",
-    "email": "matt.usurp@gmail.com"
-  },
   "license": "GPL-3.0-or-later",
+  "type": "commonjs",
   "main": "index.js",
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0",
+    "npm": ">=8.1.0"
+  },
+  "contributors": [
+    {
+      "name": "Matthew Rose",
+      "email": "matt.usurp@gmail.com"
+    }
+  ],
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/jest": "^27.4.0",
