@@ -1,6 +1,6 @@
 # Grok
 
-> An expressive series of utilities for language like types.
+> An expressive series of utilities and language like types.
 
 The type meta programming within `TypeScript` can be very powerful, especially if you treat it as a "meta language" on top of your code.
 The goal of `Grok` is to introduce the "language" element that could exist by providing a series of pre-defined type helpers that function similar to language syntax.

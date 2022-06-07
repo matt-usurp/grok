@@ -88,7 +88,10 @@ package:
 	npm publish --access public --dry-run ./${DIR_WORKSPACE}
 
 package.publish:
-	npm publish --access public ./${DIR_WORKSPACE}
+	npm publish --access public --tag latest ./${DIR_WORKSPACE}
+
+package.publish.next:
+	npm publish --access public --tag next ./${DIR_WORKSPACE}
 
 # ---
 # --- Versioning
