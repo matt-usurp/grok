@@ -69,6 +69,7 @@ build.compile.clean:
 	find ${DIR_WORKSPACE} -type f -name "*.test.d.ts" -delete
 
 build.package:
+	cp README.md ${DIR_WORKSPACE}/README.md
 	cp package.json ${DIR_WORKSPACE}/package.json
 	cp package-lock.json ${DIR_WORKSPACE}/package-lock.json
 
