@@ -83,7 +83,8 @@ build.package.verify:
 
 .PHONY: \
 	package \
-	package.publish
+	package.publish \
+	package.publish.next
 
 package:
 	npm publish --access public --dry-run ./${DIR_WORKSPACE}
