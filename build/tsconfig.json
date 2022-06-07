@@ -7,10 +7,5 @@
     "noEmit": false,
 
     "outDir": "workspace",
-  },
-
-  "exclude": [
-    "scripts",
-    "scripts/tools",
-  ],
+  }
 }

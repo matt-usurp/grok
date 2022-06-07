@@ -20,7 +20,7 @@
     "testing"
   ],
   "license": "GPL-3.0-or-later",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "engines": {
     "node": "^14.13.1 || >=16.0.0",
@@ -37,6 +37,6 @@
     "@types/jest": "^27.4.0",
     "ts-jest": "^27.1.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.7.3"
   }
 }
