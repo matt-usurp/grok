@@ -1,4 +1,4 @@
-import { MockedFunction as ViteMockFunction, vi } from 'vitest';
+import { MockedFunction as ViteMockFunction } from 'vitest';
 import type { Grok } from './index';
 
 /**
@@ -13,7 +13,7 @@ export type FunctionMock<T extends Grok.Constraint.FunctionLike> = ViteMockFunct
  * This means all mock implementations must be strictly the same types at build time, which generic jest mocks fail.
  */
 export const fn = <T extends Grok.Constraint.FunctionLike>(value?: T): FunctionMock<T> => {
-  return vi.fn(value!) as FunctionMock<T>;
+  return vitest.fn(value!) as FunctionMock<T>;
 };
 
 /**
