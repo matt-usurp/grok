@@ -86,6 +86,7 @@ type MyValue = (
 
 ## Functional Helpers
 
+- `noop()` a function that has no-operation
 - `never()` a `never` assertion
 - `okv()` a key accessor
 - `okvr()` a key accessor with validation and requirements
@@ -95,8 +96,6 @@ type MyValue = (
 
 ## Testing Helpers
 
-- `fn()` a mocking utility for functions of `T`
-- `instance()` a mocking utility for objects of `T`
 - `partial()` a `Partial<T>` to `T` disguise
 
 # Documentation
@@ -105,6 +104,10 @@ type MyValue = (
 
 A series of modular functional helpers and utilities are available also.
 These are all exported from the main entrypoint and as a modular path export that will allow for better tree shaking.
+
+### `noop`
+
+A function that can be used to represent a no-operation.
 
 ### `never`
 

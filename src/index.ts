@@ -1,4 +1,5 @@
 export { never } from './core/assert-never';
+export { noop } from './core/function';
 export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
 

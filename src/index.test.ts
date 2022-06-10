@@ -1,4 +1,5 @@
 import { never } from './core/assert-never';
+import { noop } from './core/function';
 import { okey, okv, okvr } from './core/object';
 import { provide, union } from './core/value';
 import * as index from './index';
@@ -6,6 +7,9 @@ import * as index from './index';
 describe('exports', (): void => {
   // core/assert-never
   it('exports never', () => expect(index.never).toStrictEqual(never));
+
+  // core/function
+  it('exports noop', () => expect(index.noop).toStrictEqual(noop));
 
   // core/object
   it('exports okv', () => expect(index.okv).toStrictEqual(okv));
