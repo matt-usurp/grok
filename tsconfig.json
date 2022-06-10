@@ -26,6 +26,10 @@
     "noEmit": true,
 
     "keyofStringsOnly": true,
+
+    "types": [
+      "vitest/globals",
+    ],
   },
 
   "include": [

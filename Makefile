@@ -3,15 +3,23 @@ export DIR_WORKSPACE := build/workspace
 default:
 	#
 
-# ---
-# --- Testing
-# ---
+# --
+# -- Testing
+# --
 
 .PHONY: \
-	test
+	test \
+	test.watch \
+	test.coverage.open
 
 test:
-	npx jest --verbose --colors
+	npx vitest run -c vitest.config.ts --coverage
+
+test.watch:
+	npx vitest watch -c vitest.config.ts
+
+test.coverage.open:
+	open build/coverage/index.html
 
 # ---
 # --- Package Build

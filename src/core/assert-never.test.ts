@@ -30,7 +30,7 @@ describe('NeverReachAssertionError', (): void => {
 });
 
 describe('never()', (): void => {
-  it('with no parameter, throws error', (done): void => {
+  it('with no parameter, throws error', async (): Promise<void> => {
     try {
       never();
     } catch (caught: unknown) {
@@ -41,15 +41,13 @@ describe('never()', (): void => {
       expect(error.name).toStrictEqual('NeverReachAssertionError');
       expect(error.message).toStrictEqual('A never reach assertion was executed');
 
-      done();
-
       return;
     }
 
-    done.fail('Expected an error to have been thrown!');
+    throw new Error('Expected an error to have been thrown!');
   });
 
-  it('with parameter, string, throws error', (done): void => {
+  it('with parameter, string, throws error', async (done): Promise<void> => {
     try {
       never('baz-joe' as never);
     } catch (caught: unknown) {
@@ -60,15 +58,13 @@ describe('never()', (): void => {
       expect(error.name).toStrictEqual('NeverReachAssertionError');
       expect(error.message).toStrictEqual('A never reach assertion was executed with given value: "baz-joe"');
 
-      done();
-
       return;
     }
 
-    done.fail('Expected an error to have been thrown!');
+    throw new Error('Expected an error to have been thrown!');
   });
 
-  it('with parameter, number, throws error', (done): void => {
+  it('with parameter, number, throws error', async (): Promise<void> => {
     try {
       never(123 as never);
     } catch (caught: unknown) {
@@ -79,11 +75,9 @@ describe('never()', (): void => {
       expect(error.name).toStrictEqual('NeverReachAssertionError');
       expect(error.message).toStrictEqual('A never reach assertion was executed with given value: 123');
 
-      done();
-
       return;
     }
 
-    done.fail('Expected an error to have been thrown!');
+    throw new Error('Expected an error to have been thrown!');
   });
 });
