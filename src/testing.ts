@@ -1,21 +1,19 @@
-import { jest } from '@jest/globals';
+import { MockedFunction as ViteMockFunction, vi } from 'vitest';
 import type { Grok } from './index';
 
 /**
  * A mock of the given function.
  */
-export type FunctionMock<T extends Grok.Constraint.FunctionLike> = jest.Mock<ReturnType<T>, Parameters<T>>;
+export type FunctionMock<T extends Grok.Constraint.FunctionLike> = ViteMockFunction<T>;
 
 /**
  * Create a function mock.
- *
- * A wrapper around the Jest functional mock that enforces type safety.
  *
  * The value of this is a mock that has all the correct typings from the given {@link T}.
  * This means all mock implementations must be strictly the same types at build time, which generic jest mocks fail.
  */
 export const fn = <T extends Grok.Constraint.FunctionLike>(value?: T): FunctionMock<T> => {
-  return jest.fn(value) as FunctionMock<T>;
+  return vi.fn(value!) as FunctionMock<T>;
 };
 
 /**

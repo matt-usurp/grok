@@ -249,11 +249,11 @@ age(); // 30
 
 ## Testing Helpers
 
-A series of helpers and utlities for enriching your testing experience with `jest` or `ts-jest`.
+A series of helpers and utlities for enriching your testing experience.
 
 ### `fn`
 
-An extension on `jest.fn()` that allows you to pass your function type as the generic and it will resolve the arguments and result for you.
+An extension on `vi.fn()` that allows you to pass your function type as the generic and it will resolve the arguments and result for you.
 
 ```ts
 import { fn } from '@matt-usurp/grok/testing';
@@ -300,7 +300,7 @@ expect(value.speak).toBeCalledTimes(1);
 This is a utility that works similar to `instance()` but in a more simplified way, it can be better expressed through the type `<T>(in: Partial<T>) => T`.
 Again, this is intended for use with testing where a full `T` is needed but your test is asserting just a `Partial<T>`.
 
-> This is intended more of a utility around types not less about functionality.
+> This is intended more of a utility around types and less about functionality.
 
 ```ts
 import { partial } from '@matt-usurp/grok/testing';
