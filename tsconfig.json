@@ -33,8 +33,10 @@
   },
 
   "include": [
-    "build/scripts",
-    "build/scripts/tools",
+    ".eslintrc.js",
+    "commitlint.config.js",
+    "vitest.config.ts",
+
     "src",
   ]
 }
