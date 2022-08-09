@@ -82,7 +82,7 @@ type MyValue = (
 - `Maybe` to add `undefined` (opposite of `NonNullable` in `typescript` core)
 - `Nullable` to add `null` (opposite of `NonNullable` in `typescript` core)
 - `Mutable` to remove `readonly` (opposite of `Readonly` in `typescript` core)
-- `Provider<T>` to represent a function like `() => T`
+- `Provider<T>` to represent a function that returns its given value, alias `() => T`
 
 ## Functional Helpers
 
@@ -92,7 +92,7 @@ type MyValue = (
 - `okvr()` a key accessor with validation and requirements
 - `okey()` a type `keyof` assistance
 - `union()` a union value enforcement
-- 'provide()` a helper for creation `Provider<T>`
+- 'provide()` a helper for creating `Provider<T>`
 
 ## Testing Helpers
 
@@ -236,6 +236,7 @@ values; // ['name', 'age']
 
 A utility that creates functions that are compatible with a `Provider<T>`.
 A `Provider<T>` is a essentially a value wrapped in a function with no parameters.
+When called it will return the given value.
 
 ```ts
 import { provide } from '@matt-usurp/grok'
