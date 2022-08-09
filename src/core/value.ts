@@ -43,6 +43,8 @@ export type UnionKeyEnforcementMapping<K extends string> = Record<K, undefined>;
 export const union = <T extends string>(keys: UnionKeyEnforcementMapping<T>): T[] => Object.keys(keys) as T[];
 
 /**
- * Create a provider from the given value.
+ * Create a function that will provide the given value {@link T} when called.
+ *
+ * This is functional sugar for the type `() => T` and can be used with composition.
  */
 export const provide = <T>(value: T): Provider<T> => () => value;
