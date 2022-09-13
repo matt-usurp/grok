@@ -1,5 +1,7 @@
+import * as inherit from './core/inherit';
 export { never } from './core/assert-never';
 export { noop } from './core/function';
+export { inherit } from './core/inherit';
 export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
 
@@ -29,6 +31,12 @@ export type Mutable<T extends Grok.Constraint.ObjectLike> = {
  * Grok is an expressive series of type helpers and utilities.
  */
 export namespace Grok {
+  /**
+   * A value type for a symbol that represents a unique action.
+   *
+   * For more information see {@link inherit.InheritActionType InheritActionType}.
+   */
+  export import Inherit = inherit.InheritActionType;
 
   // --
   // -- Logic & Control Flow
@@ -129,7 +137,21 @@ export namespace Grok {
     >
   )
 
+  /**
+   * Value validators and check helpers.
+   */
   export namespace Value {
+    /**
+     * A value check to validate {@link T} is the {@link Grok.Inherit} type.
+     */
+    export type IsInherit<T> = (
+      Grok.If<
+        Grok.Value.IsAny<T>,
+        false,
+        Grok.Value.IsExactly<T, Grok.Inherit>
+      >
+    );
+
     /**
      * A value check to validate that `A` extends `B`.
      */
