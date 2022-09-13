@@ -49,6 +49,30 @@ export namespace Test_Grok {
   }
 
   /**
+   * {@link Grok.If}
+   */
+  export namespace Test_If {
+    export namespace Test_If {
+      type Case_WithTrue = Grok.Testing.AssertTrue<Grok.If<true, true, false>>;
+
+      type Case_WithFalse = Grok.Testing.AssertFalse<Grok.If<false, true, false>>;
+    }
+
+    export namespace Test_If_IsAny {
+      type Case_WithAny = Grok.Testing.AssertTrue<Grok.If.IsAny<any, true, false>>;
+
+      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.If.IsAny<undefined, true, false>>;
+      type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.If.IsAny<false, true, false>>;
+      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.If.IsAny<123, true, false>>;
+      type Case_WithString = Grok.Testing.AssertFalse<Grok.If.IsAny<'test', true, false>>;
+
+      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.If.IsAny<unknown, true, false>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.If.IsAny<void, true, false>>;
+      type Case_WithNever = Grok.Testing.AssertFalse<Grok.If.IsAny<never, true, false>>;
+    }
+  }
+
+  /**
    * {@link Grok.Value}
    */
   export namespace Test_Value {
@@ -60,6 +84,19 @@ export namespace Test_Grok {
       type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsInherit<undefined>>;
       type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsInherit<unknown>>;
       type Case_WithAny = Grok.Testing.AssertFalse<Grok.Value.IsInherit<any>>;
+    }
+
+    export namespace Test_Value_IsAny {
+      type Case_WithAny = Grok.Testing.AssertTrue<Grok.Value.IsAny<any>>;
+
+      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsAny<undefined>>;
+      type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.Value.IsAny<false>>;
+      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.Value.IsAny<123>>;
+      type Case_WithString = Grok.Testing.AssertFalse<Grok.Value.IsAny<'test'>>;
+
+      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsAny<unknown>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsAny<void>>;
+      type Case_WithNever = Grok.Testing.AssertFalse<Grok.Value.IsAny<never>>;
     }
   }
 }
