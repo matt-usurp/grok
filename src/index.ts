@@ -160,11 +160,7 @@ export namespace Grok {
      * A value check to validate {@link T} is the {@link Grok.Inherit} type.
      */
     export type IsInherit<T> = (
-      Grok.If<
-        Grok.Value.IsAny<T>,
-        false,
-        Grok.Value.IsExactly<T, Grok.Inherit>
-      >
+      Grok.If.IsAny<T, false, Grok.Value.IsExactly<T, Grok.Inherit>>
     );
 
     /**
