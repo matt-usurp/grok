@@ -98,6 +98,12 @@ type MyValue = (
 
 - `partial()` a `Partial<T>` to `T` disguise
 
+## Testing Helpers (types)
+
+- `Grok.Testing.Assert` for asserting values.
+- `Grok.Testing.AssertTrue` for asserting a value is true.
+- `Grok.Testing.AssertFalse` for asserting a value is false.
+
 # Documentation
 
 ## Functional Helpers
