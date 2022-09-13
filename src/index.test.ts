@@ -53,22 +53,22 @@ export namespace Test_Grok {
    */
   export namespace Test_If {
     export namespace Test_If {
-      type Case_WithTrue = Grok.Testing.AssertTrue<Grok.If<true, true, false>>;
+      type Case_WithTrue = Grok.Testing.Assert<'pass', Grok.If<true, 'pass', 'fail'>>;
 
-      type Case_WithFalse = Grok.Testing.AssertFalse<Grok.If<false, true, false>>;
+      type Case_WithFalse = Grok.Testing.Assert<'fail', Grok.If<false, 'pass', 'fail'>>;
     }
 
     export namespace Test_If_IsAny {
-      type Case_WithAny = Grok.Testing.AssertTrue<Grok.If.IsAny<any, true, false>>;
+      type Case_WithAny = Grok.Testing.Assert<'pass', Grok.If.IsAny<any, 'pass', 'fail'>>;
 
-      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.If.IsAny<undefined, true, false>>;
-      type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.If.IsAny<false, true, false>>;
-      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.If.IsAny<123, true, false>>;
-      type Case_WithString = Grok.Testing.AssertFalse<Grok.If.IsAny<'test', true, false>>;
+      type Case_WithUndefined = Grok.Testing.Assert<'fail', Grok.If.IsAny<undefined, 'pass', 'fail'>>;
+      type Case_WithBoolean = Grok.Testing.Assert<'fail', Grok.If.IsAny<false, 'pass', 'fail'>>;
+      type Case_WithNumber = Grok.Testing.Assert<'fail', Grok.If.IsAny<123, 'pass', 'fail'>>;
+      type Case_WithString = Grok.Testing.Assert<'fail', Grok.If.IsAny<'test', 'pass', 'fail'>>;
 
-      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.If.IsAny<unknown, true, false>>;
-      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.If.IsAny<void, true, false>>;
-      type Case_WithNever = Grok.Testing.AssertFalse<Grok.If.IsAny<never, true, false>>;
+      type Case_WithUnknown = Grok.Testing.Assert<'fail', Grok.If.IsAny<unknown, 'pass', 'fail'>>;
+      type Case_WithVoid = Grok.Testing.Assert<'fail', Grok.If.IsAny<void, 'pass', 'fail'>>;
+      type Case_WithNever = Grok.Testing.Assert<'fail', Grok.If.IsAny<never, 'pass', 'fail'>>;
     }
   }
 

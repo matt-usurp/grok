@@ -233,12 +233,23 @@ export namespace Grok {
    */
   export namespace Testing {
     /**
-     * Assertion type that checks the given {@link T} is true.
+     * Assertion type that checks that {@link A} is the same as {@link B}.
+     *
+     * As an assertion type, the return value of this utility should be ignored.
+     */
+    export type Assert<A, B extends A> = B;
+
+    /**
+     * Assertion type that checks that {@link T} is true.
+     *
+     * As an assertion type, the return value of this utility should be ignored.
      */
     export type AssertTrue<T extends true> = T;
 
     /**
-     * Assertion type that checks the given {@link T} is false.
+     * Assertion type that checks that {@link T} is false.
+     *
+     * As an assertion type, the return value of this utility should be ignored.
      */
     export type AssertFalse<T extends false> = T;
   }
