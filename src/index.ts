@@ -192,4 +192,21 @@ export namespace Grok {
         : false
     );
   }
+
+  /**
+   * Type testing assertions and utility types.
+   *
+   * These can be used within unit-like test cases for types, the constraints enforce the case is correct at build time.
+   */
+  export namespace Testing {
+    /**
+     * Assertion type that checks the given {@link T} is true.
+     */
+    export type AssertTrue<T extends true> = T;
+
+    /**
+     * Assertion type that checks the given {@link T} is false.
+     */
+    export type AssertFalse<T extends false> = T;
+  }
 }
