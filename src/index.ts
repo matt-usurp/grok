@@ -43,7 +43,7 @@ export namespace Grok {
   // --
 
   /**
-   * A logical `IF` that selects from the given values depending on the condition.
+   * A logical `if-statement` that returns {@link Then} when {@link Condition} is true and {@link Else} when {@link Condition} is false.
    *
    * @type {Condition} The boolean expression that determines the returned value.
    * @type {Then} The value returned when the expression resolves to true.
@@ -54,6 +54,21 @@ export namespace Grok {
       ? Then
       : Else
   );
+
+  export namespace If {
+    /**
+     * A local `if-statement` that returns {@link Then} when {@link Value} is `any` and {@link Else} when it is not.
+     *
+     * A syntax shortcut for {@link Grok.If} and {@link Grok.Value.IsAny}.
+     */
+    export type IsAny<Value, Then, Else> = (
+      Grok.If<
+        Grok.Value.IsAny<Value>,
+        Then,
+        Else
+      >
+    );
+  }
 
   /**
    * A logical `AND` gate that returns true when both given values are true.
