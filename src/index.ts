@@ -148,11 +148,21 @@ export namespace Grok {
   /**
    * A safe union (`|`) operation that will ignore TypeScript `any`.
    */
-  export type Union<UnknownValue, KnownValue> = (
+  export type Union<A, B> = (
     Grok.If<
-      Grok.Value.IsAny<UnknownValue>,
-      KnownValue,
-      KnownValue | UnknownValue
+      Grok.And<[
+        Grok.Value.IsAny<A>,
+        Grok.Value.IsAny<B>,
+      ]>,
+      never,
+      Grok.If<
+        Grok.Or<[
+          Grok.Value.IsAny<A>,
+          Grok.Value.IsAny<B>,
+        ]>,
+        Grok.If.IsAny<A, B, A>,
+        A | B
+      >
     >
   );
 

@@ -123,6 +123,13 @@ export namespace Test_Grok {
    * {@link Grok.Union}
    */
   export namespace Test_Union {
+    export namespace Test_Union {
+      type Case_WithOneTwo = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Union<1, 2>, 1 | 2>>;
+      type Case_WithOneAny = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Union<1, any>, 1>>;
+      type Case_WithAnyTwo = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Union<any, 2>, 2>>;
+      type Case_WithAnyAny = Grok.Testing.AssertNever<Grok.Union<any, any>>;
+    }
+
     export namespace Test_UnionFromArray {
       type Case_WithEmpty = Grok.Testing.AssertNever<Grok.Union.FromArray<[]>>;
 
