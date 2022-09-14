@@ -13,6 +13,7 @@ export default configure({
     coverage: {
       all: true,
       clean: true,
+      skipFull: true,
 
       include: [
         'src/**/*',
