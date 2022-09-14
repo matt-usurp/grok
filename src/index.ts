@@ -42,6 +42,39 @@ export namespace Grok {
 
   export namespace Inherit {
     /**
+     * A safe merge that will acknowledge {@link Grok.Inherit}.
+     *
+     * Firstly, {@link A} and {@link B} must be the same shape.
+     * When a value within either {@link A} or {@link B} is {@link Grok.Inherit} (or is the `any` type) then the other is picked.
+     * When values are both present then {@link B} takes priority and will "overwrite" that in {@link A}.
+     */
+    export type Merge<A extends Grok.Constraint.ObjectLike, B extends Grok.Core.ConstraintFrom<A>> = (
+      Grok.If<
+        Grok.Or<[
+          Grok.Value.IsAny<A>,
+          Grok.Value.IsAny<B>,
+        ]>,
+        Grok.If.IsAny<A, B, A>,
+        {
+          [K in keyof A]: (
+            Grok.If<
+              Grok.Or<[
+                Grok.Value.IsInherit<Grok.Inherit.Normalise<A[K]>>,
+                Grok.Value.IsInherit<Grok.Inherit.Normalise<B[K]>>,
+              ]>,
+              Grok.If<
+                Grok.Value.IsInherit<Grok.Inherit.Normalise<A[K]>>,
+                Grok.Inherit.Normalise<B[K]>,
+                Grok.Inherit.Normalise<A[K]>
+              >,
+              Grok.Inherit.Normalise<B[K]>
+            >
+          )
+        }
+      >
+    );
+
+    /**
      * Normalise the given {@link Value} to be {@link Grok.Inherit}.
      *
      * This essentially removes cases where the `any` type might be used and cause conflict.
