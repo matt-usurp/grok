@@ -137,11 +137,21 @@ export namespace Grok {
   /**
    * A safe merge (`&`) operation that will ignore TypeScript `any`.
    */
-  export type Merge<UnknownValue, KnownValue> = (
+  export type Merge<A, B> = (
     Grok.If<
-      Grok.Value.IsAny<UnknownValue>,
-      KnownValue,
-      KnownValue & UnknownValue
+      Grok.And<[
+        Grok.Value.IsAny<A>,
+        Grok.Value.IsAny<B>,
+      ]>,
+      never,
+      Grok.If<
+        Grok.Or<[
+          Grok.Value.IsAny<A>,
+          Grok.Value.IsAny<B>,
+        ]>,
+        Grok.If.IsAny<A, B, A>,
+        A & B
+      >
     >
   );
 
