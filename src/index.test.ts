@@ -149,6 +149,9 @@ export namespace Test_Grok {
    * {@link Grok.Union}
    */
   export namespace Test_Union {
+    /**
+     * {@link Grok.Union}
+     */
     export namespace Test_Union {
       type Case_WithOneTwo = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Union<1, 2>, 1 | 2>>;
       type Case_WithOneAny = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Union<1, any>, 1>>;
@@ -156,6 +159,9 @@ export namespace Test_Grok {
       type Case_WithAnyAny = Grok.Assert.IsNever<Grok.Union<any, any>>;
     }
 
+    /**
+     * {@link Grok.Union.FromArray}
+     */
     export namespace Test_Union_FromArray {
       type Case_WithEmpty = Grok.Assert.IsNever<Grok.Union.FromArray<[]>>;
 
@@ -169,7 +175,10 @@ export namespace Test_Grok {
    * {@link Grok.Constraint}
    */
   export namespace Test_Constraint {
-    export namespace Test_Constraint_Array {
+    /**
+     * {@link Grok.Constraint.ArrayWithOneOrMore}
+     */
+    export namespace Test_Constraint_ArrayWithOneOrMore {
       type Case_WithEmpty = Grok.Assert.IsFalse<Grok.Value.IsExtending<[], Grok.Constraint.ArrayWithOneOrMore<number>>>;
       type Case_WithOne = Grok.Assert.IsTrue<Grok.Value.IsExtending<[1], Grok.Constraint.ArrayWithOneOrMore<number>>>;
       type Case_WithOneTwo = Grok.Assert.IsTrue<Grok.Value.IsExtending<[1, 2], Grok.Constraint.ArrayWithOneOrMore<number>>>;
