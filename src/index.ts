@@ -190,13 +190,10 @@ export namespace Grok {
      * A value check to validate that `A` and `B` are the exact same.
      */
     export type IsExactly<A, B> = (
-      A extends B
-        ? (
-          B extends A
-            ? true
-            : false
-        )
-        : false
+      Grok.And<[
+        Grok.Value.IsExtending<A, B>,
+        Grok.Value.IsExtending<B, A>,
+      ]>
     );
 
     /**

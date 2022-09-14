@@ -178,7 +178,26 @@ export namespace Test_Grok {
     }
 
     /**
+     * {@link Grok.Value.IsExactly}
+     */
+    export namespace Test_Value_IsExactly {
+      type Case_WithOneOne = Grok.Testing.AssertTrue<Grok.Value.IsExactly<1, 1>>;
+      type Case_WithOneTwo = Grok.Testing.AssertFalse<Grok.Value.IsExactly<1, 2>>;
+      type Case_WithTwoOne = Grok.Testing.AssertFalse<Grok.Value.IsExactly<2, 1>>;
+
+      type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.Value.IsExactly<true, true>>;
+      type Case_WithTrueFalse = Grok.Testing.AssertFalse<Grok.Value.IsExactly<true, false>>;
+      type Case_WithFalseTrue = Grok.Testing.AssertFalse<Grok.Value.IsExactly<false, true>>;
+      type Case_WithBooleanBoolean = Grok.Testing.AssertTrue<Grok.Value.IsExactly<boolean, boolean>>;
+      type Case_WithBooleanTrue = Grok.Testing.AssertFalse<Grok.Value.IsExactly<boolean, true>>;
+      type Case_WithBooleanFalse = Grok.Testing.AssertFalse<Grok.Value.IsExactly<boolean, false>>;
+      type Case_WithTrueBoolean = Grok.Testing.AssertFalse<Grok.Value.IsExactly<true, boolean>>;
+      type Case_WithFalseBoolean = Grok.Testing.AssertFalse<Grok.Value.IsExactly<false, boolean>>;
+    }
+
+    /**
      * {@link Grok.Value.IsAny}
+     */
     export namespace Test_Value_IsAny {
       type Case_WithAny = Grok.Testing.AssertTrue<Grok.Value.IsAny<any>>;
 
