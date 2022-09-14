@@ -120,6 +120,16 @@ export namespace Test_Grok {
   }
 
   /**
+   * {@link Grok.Merge}
+   */
+  export namespace Test_Merge {
+    type Case_NameAge = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Merge<{ name: string }, { age: number }>, { name: string; age: number }>>;
+    type Case_NameAny = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Merge<{ name: string }, any>, { name: string }>>;
+    type Case_AnyAge = Grok.Testing.AssertTrue<Grok.Value.IsExactly<Grok.Merge<any, { age: number }>, { age: number }>>;
+    type Case_AnyAny = Grok.Testing.AssertNever<Grok.Merge<any, any>>;
+  }
+
+  /**
    * {@link Grok.Union}
    */
   export namespace Test_Union {
