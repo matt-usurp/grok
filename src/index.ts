@@ -135,7 +135,10 @@ export namespace Grok {
   // --
 
   /**
-   * A safe merge (`&`) operation that will ignore TypeScript `any`.
+   * A safe merge (`&`) operation between {@link A} and {@link B} that will ignore the `any` type.
+   *
+   * Should either {@link A} or {@link B} be any then the other value is returned on its own.
+   * Should {@link A} and {@link B} be `any` then `never` is returned.
    */
   export type Merge<A, B> = (
     Grok.If<
@@ -156,7 +159,10 @@ export namespace Grok {
   );
 
   /**
-   * A safe union (`|`) operation that will ignore TypeScript `any`.
+   * A safe union (`|`) operation between {@link A} and {@link B} that will ignore the `any` type.
+   *
+   * Should either {@link A} or {@link B} be any then the other value is returned on its own.
+   * Should {@link A} and {@link B} be `any` then `never` is returned.
    */
   export type Union<A, B> = (
     Grok.If<
@@ -178,7 +184,7 @@ export namespace Grok {
 
   export namespace Union {
     /**
-     * Convert the given `any[]` {@link T} to a union of its values.
+     * Convert the given {@link T} (`any[]`) to a union of its values.
      */
     export type FromArray<T extends Grok.Constraint.Anything[]> = T[number];
   }
@@ -274,6 +280,9 @@ export namespace Grok {
     );
   }
 
+  /**
+   * Core types are used within {@link Grok} to help ensure safe logic or easier syntax.
+   */
   export namespace Core {
     /**
      * Detect a logical flaw in {@link Value} and return {@link Fallback}, otherwise return the {@link Value}.
