@@ -96,7 +96,7 @@ export namespace Grok {
   );
 
   /**
-   * A check that looks for {@link Needle} in {@link Haystack}.
+   * A value check that looks for {@link Needle} in {@link Haystack}.
    */
   export type Has<Needle, Haystack extends Grok.Constraint.ArrayWithOneOrMore<Grok.Constraint.Anything>> = (
     Needle extends Grok.Union.FromArray<Haystack>
@@ -214,6 +214,20 @@ export namespace Grok {
      */
     export type IsNever<V> = (
       [V] extends [never]
+        ? true
+        : false
+    );
+
+    /**
+     * Check the {@link Value} is the `boolean` type.
+     *
+     * This will return `false` for both `true` and `false`, this needs to be the union of both.
+     *
+     * Helpful for testing if an `extends` statement is truthy in both directions.
+     * For example, `boolean extends true ? true : false` will resolve to `true` and `false`.
+     */
+    export type IsBoolean<Value> = (
+      boolean extends Value
         ? true
         : false
     );
