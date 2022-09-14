@@ -298,6 +298,11 @@ export namespace Grok {
         Value
       >
     );
+
+    /**
+     * Construct a constraint type from the given {@link Value}.
+     */
+    export type ConstraintFrom<Value extends Grok.Constraint.ObjectLike> = Record<keyof Value, unknown>;
   }
 
   /**
