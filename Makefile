@@ -98,6 +98,9 @@ package:
 package.publish:
 	npm publish --access public ./${DIR_WORKSPACE}
 
+package.publish.next:
+	npm publish --access public --tag next ./${DIR_WORKSPACE}
+
 # ---
 # --- Versioning
 # ---
