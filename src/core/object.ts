@@ -31,7 +31,7 @@ export class ObjectKeyMissingError extends Error {
 export type ObjectKeyValueAccessor<M extends Grok.Constraint.ObjectLike> = <K extends keyof M>(key: K, fallback?: M[K]) => M[K];
 
 export type ObjectKeyValueFactory = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>) => ObjectKeyValueAccessor<M>;
-export type ObjectKeyValueFactoryWithEnforcement = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>, enforce?: string[], validator?: ValueValidatorFunction<Grok.Constraint.Anything>) => ObjectKeyValueAccessor<M>;
+export type ObjectKeyValueFactoryWithEnforcement = <M extends Grok.Constraint.ObjectLike>(source: Partial<M>, enforce?: string[], validator?: ValueValidatorFunction<any>) => ObjectKeyValueAccessor<M>;
 
 /**
  * Retrieve values by key from an object with type safety.
