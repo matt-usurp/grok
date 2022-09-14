@@ -178,14 +178,14 @@ export namespace Grok {
    */
   export namespace Value {
     /**
-     * A value check to validate {@link T} is the {@link Grok.Inherit} type.
+     * Check that {@link Value} is the {@link Grok.Inherit} type.
      */
-    export type IsInherit<T> = (
-      Grok.If.IsAny<T, false, Grok.Value.IsExactly<T, Grok.Inherit>>
+    export type IsInherit<Value> = (
+      Grok.If.IsAny<Value, false, Grok.Value.IsExactly<Value, Grok.Inherit>>
     );
 
     /**
-     * A value check to validate that {@link A} extends {@link B}.
+     * Check that {@link A} extends {@link B}.
      */
     export type IsExtending<A, B> = (
       Grok.Core.DetectLogicalFlaw<
@@ -197,7 +197,7 @@ export namespace Grok {
     );
 
     /**
-     * A value check to validate that `A` and `B` are the exact same.
+     * Check that {@link A} and {@link B} are the exact same.
      */
     export type IsExactly<A, B> = (
       Grok.And<[
@@ -207,18 +207,20 @@ export namespace Grok {
     );
 
     /**
-     * A value check against the TypeScript `any` type.
+     * Check that {@link Value} is the `any` type.
+     *
      * Done by abusing an assertion that will fail unless merged with something that expands it.
-     * When the value given is `any` then check will pass meaning `any` was most likely used.
+     * When the {@link Value} given is `any` then check will pass meaning `any` was most likely used.
      */
-    export type IsAny<V> = (
-      0 extends (1 & V)
+    export type IsAny<Value> = (
+      0 extends (1 & Value)
         ? true
         : false
     );
 
     /**
-     * A value check against the TypeScript `never` type.
+     * Check that {@link Value} is the `never` type.
+     *
      * Done by abusing tuples and their values that can not be `never`, therefore the value is ignored.
      * When the value is `never` the tuple lengths will be different and therefore not match.
      */
