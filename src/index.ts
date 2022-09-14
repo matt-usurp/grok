@@ -222,9 +222,6 @@ export namespace Grok {
      * Check the {@link Value} is the `boolean` type.
      *
      * This will return `false` for both `true` and `false`, this needs to be the union of both.
-     *
-     * Helpful for testing if an `extends` statement is truthy in both directions.
-     * For example, `boolean extends true ? true : false` will resolve to `true` and `false`.
      */
     export type IsBoolean<Value> = (
       boolean extends Value
@@ -252,6 +249,23 @@ export namespace Grok {
         Grok.Not<Grok.Value.IsNever<Value>>,
         Grok.Value.IsExactly<Value, false>,
       ]>
+    );
+  }
+
+  export namespace Core {
+    /**
+     * Detect a logical flaw in {@link Value} and return {@link Fallback}, otherwise return the {@link Value}.
+     *
+     * A logical flaw is essentially the pure `boolean` type, this indicates an `extends` statement has resolved both its branches.
+     * This can be triggered for example with `boolean extends true` which will resolve to both `true` and `false` branches.
+     * Within the logical checks we only use booleans, so this is syntax sugar around a simplistic check.
+     */
+    export type DetectLogicalFlaw<Value extends boolean, Fallback extends boolean> = (
+      Grok.If<
+        Grok.Value.IsBoolean<Value>,
+        Fallback,
+        Value
+      >
     );
   }
 
