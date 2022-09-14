@@ -25,7 +25,7 @@ export type Mutable<T extends Grok.Constraint.ObjectLike> = {
 /**
  * A function that when called returns the type {@link T}.
  */
- export type Provider<T> = () => T;
+export type Provider<T> = () => T;
 
 /**
  * Grok is an expressive series of type helpers and utilities.
@@ -208,21 +208,23 @@ export namespace Grok {
     );
 
     /**
-     * A value check against boolean `true`.
+     * Check the {@link Value} is the boolean `true`.
      */
-    export type IsTrue<V> = (
-      V extends true
-        ? true
-        : false
+    export type IsTrue<Value> = (
+      Grok.And<
+        Grok.Not<Grok.Value.IsAny<Value>>,
+        Grok.Value.IsExactly<Value, true>
+      >
     );
 
     /**
-     * A value check against boolean `false`.
+     * Check the {@link Value} is the boolean `false`.
      */
-    export type IsFalse<V> = (
-      V extends false
-        ? true
-        : false
+    export type IsFalse<Value> = (
+      Grok.And<
+        Grok.Not<Grok.Value.IsAny<Value>>,
+        Grok.Value.IsExactly<Value, false>
+      >
     );
   }
 
