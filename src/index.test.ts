@@ -102,6 +102,20 @@ export namespace Test_Grok {
   }
 
   /**
+   * {@link Grok.Has}
+   */
+  export namespace Test_Has {
+    type Case_WithTrue = Grok.Testing.AssertTrue<Grok.Has<true, [true]>>;
+    type Case_WithTrueFalse =Grok.Testing.AssertTrue<Grok.Has<true, [true, false]>>;
+    type Case_WithFalseTrueFalse = Grok.Testing.AssertTrue<Grok.Has<true, [false, true, false]>>;
+
+    type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.Has<1, [false, true, false]>>;
+    type Case_WithOne = Grok.Testing.AssertTrue<Grok.Has<1, [1]>>;
+    type Case_WithOneTwo = Grok.Testing.AssertTrue<Grok.Has<1, [1, 2]>>;
+    type Case_WithOneTwoThree = Grok.Testing.AssertTrue<Grok.Has<1, [1, 2, 3]>>;
+  }
+
+  /**
    * {@link Grok.Union}
    */
   export namespace Test_Union {

@@ -101,6 +101,12 @@ export namespace Grok {
       : true
   );
 
+  export type Has<V, T extends Grok.Constraint.ArrayWithOneOrMore<Grok.Constraint.Anything>> = (
+    V extends Grok.Union.FromArray<T>
+      ? true
+      : false
+  );
+
   // --
   // -- Value Constraints
   // --
