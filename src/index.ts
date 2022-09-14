@@ -102,7 +102,7 @@ export namespace Grok {
   );
 
   // --
-  // -- Logic & Control Flow
+  // -- Value Constraints
   // --
 
   export namespace Constraint {
@@ -151,7 +151,14 @@ export namespace Grok {
       KnownValue,
       KnownValue | UnknownValue
     >
-  )
+  );
+
+  export namespace Union {
+    /**
+     * Convert the given `any[]` {@link T} to a union of its values.
+     */
+    export type FromArray<T extends Grok.Constraint.Anything[]> = T[number];
+  }
 
   /**
    * Value validators and check helpers.

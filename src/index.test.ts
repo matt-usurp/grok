@@ -102,6 +102,19 @@ export namespace Test_Grok {
   }
 
   /**
+   * {@link Grok.Union}
+   */
+  export namespace Test_Union {
+    export namespace Test_UnionFromArray {
+      type Case_WithEmpty = Grok.Testing.AssertNever<Grok.Union.FromArray<[]>>;
+
+      type Case_WithOne = Grok.Testing.Assert<1, Grok.Union.FromArray<[1]>>;
+      type Case_WithOneTwo = Grok.Testing.Assert<1 | 2, Grok.Union.FromArray<[1, 2]>>;
+      type Case_WithOneTwoThree = Grok.Testing.Assert<1 | 2 | 3, Grok.Union.FromArray<[1, 2, 3]>>;
+    }
+  }
+
+  /**
    * {@link Grok.Constraint}
    */
   export namespace Test_Constraint {
