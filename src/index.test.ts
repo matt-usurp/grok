@@ -29,19 +29,17 @@ describe('exports', (): void => {
  * @ignore
  */
 export namespace Test_Grok {
-
   /**
    * {@link Grok.Inherit}
    */
   export namespace Test_Inherit {
-    const TestSymbol = Symbol('test');
-    type TestSymbolKind = typeof TestSymbol;
+    const TestSymbol = Symbol('test:inherit');
 
-    export namespace Test_Inherit_Unique {
-      type Test<T extends Grok.Inherit> = T;
+    export namespace Test_Inherit_IsUnique {
+      type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit, Grok.Inherit>>;
+      type Case_WithNoneInheritSymbol = Grok.Assert.IsFalse<Grok.Value.IsExactly<Grok.Inherit, typeof TestSymbol>>;
+    }
 
-      type Case_WithInherit = Test<InheritActionType>;
-      type Case_WithInheritAlias = Test<Grok.Inherit>;
 
       // @ts-expect-error Should only allow the inherit symbol.
       type Case_WithNoneInheritSymbol = Test<TestSymbolKind>;
@@ -140,7 +138,7 @@ export namespace Test_Grok {
       type Case_WithAnyAny = Grok.Assert.IsNever<Grok.Union<any, any>>;
     }
 
-    export namespace Test_UnionFromArray {
+    export namespace Test_Union_FromArray {
       type Case_WithEmpty = Grok.Assert.IsNever<Grok.Union.FromArray<[]>>;
 
       type Case_WithOne = Grok.Assert<1, Grok.Union.FromArray<[1]>>;
@@ -170,7 +168,6 @@ export namespace Test_Grok {
      */
     export namespace Test_Value_IsInherit {
       type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit>>;
-      type Case_WithInheritAlias = Grok.Assert.IsTrue<Grok.Value.IsInherit<InheritActionType>>;
 
       type Case_WithBoolean = Grok.Assert.IsFalse<Grok.Value.IsInherit<true>>;
       type Case_WithUndefined = Grok.Assert.IsFalse<Grok.Value.IsInherit<undefined>>;
@@ -293,6 +290,20 @@ export namespace Test_Grok {
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsFalse<any>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsFalse<unknown>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsFalse<never>>;
+    }
+  }
+
+  /**
+   * {@link Grok.Core}
+   */
+  export namespace Test_Core {
+    /**
+     * {@link Grok.Core.ConstraintFrom}
+     */
+    export namespace Test_Core_ConstraintFrom {
+      type Case_WithEmpty = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Core.ConstraintFrom<{}>, {}>>;
+      type Case_WithSingleProperty = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Core.ConstraintFrom<{ a: number }>, { a: unknown }>>;
+      type Case_WithManyProperty = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Core.ConstraintFrom<{ a: number; b: string; c: unknown }>, { a: unknown; b: unknown; c: unknown }>>;
     }
   }
 }
