@@ -152,7 +152,7 @@ export namespace Grok {
   /**
    * A value check that looks for {@link Needle} in {@link Haystack}.
    */
-  export type Has<Needle, Haystack extends Grok.Constraint.ArrayWithOneOrMore<Grok.Constraint.Anything>> = (
+  export type Has<Needle, Haystack extends Grok.Constraint.ArrayWithOneOrMore<any>> = (
     Needle extends Grok.Union.FromArray<Haystack>
       ? true
       : false
@@ -165,6 +165,8 @@ export namespace Grok {
   export namespace Constraint {
     /**
      * A constraint type that conforms to anything.
+     *
+     * @deprecated
      */
     export type Anything = any;
 
@@ -240,7 +242,7 @@ export namespace Grok {
     /**
      * Convert the given {@link T} (`any[]`) to a union of its values.
      */
-    export type FromArray<T extends Grok.Constraint.Anything[]> = T[number];
+    export type FromArray<T extends any[]> = T[number];
   }
 
   /**
