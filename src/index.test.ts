@@ -72,6 +72,9 @@ export namespace Test_Grok {
     }
   }
 
+  /**
+   * {@link Grok.And}
+   */
   export namespace Test_And {
     type Case_WithTrue = Grok.Testing.AssertTrue<Grok.And<[true]>>;
     type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.And<[true, true]>>;
@@ -87,12 +90,27 @@ export namespace Test_Grok {
     type Case_WithFalseFalseTrue = Grok.Testing.AssertFalse<Grok.And<[false, false, true]>>;
   }
 
+  /**
+   * {@link Grok.Or}
+   */
   export namespace Test_Or {
     type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.Or<true, true>>;
     type Case_WithTrueFalse = Grok.Testing.AssertTrue<Grok.Or<true, false>>;
     type Case_WithFalseTrue = Grok.Testing.AssertTrue<Grok.Or<false, true>>;
 
     type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.Or<false, false>>;
+  }
+
+  /**
+   * {@link Grok.Constraint}
+   */
+  export namespace Test_Constraint {
+    export namespace Test_Constraint_Array {
+      type Case_WithEmpty = Grok.Testing.AssertFalse<Grok.Value.IsExtending<[], Grok.Constraint.ArrayWithOneOrMore<number>>>;
+      type Case_WithOne = Grok.Testing.AssertTrue<Grok.Value.IsExtending<[1], Grok.Constraint.ArrayWithOneOrMore<number>>>;
+      type Case_WithOneTwo = Grok.Testing.AssertTrue<Grok.Value.IsExtending<[1, 2], Grok.Constraint.ArrayWithOneOrMore<number>>>;
+      type Case_WithOneTwoThree = Grok.Testing.AssertTrue<Grok.Value.IsExtending<[1, 2, 3], Grok.Constraint.ArrayWithOneOrMore<number>>>;
+    }
   }
 
   /**

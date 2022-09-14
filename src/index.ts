@@ -120,6 +120,11 @@ export namespace Grok {
      * A constraint type that conforms to any function like type or value.
      */
     export type FunctionLike = (...args: any) => any;
+
+    /**
+     * A constraint type that requires the value be an array with one (or more) {@link T}
+     */
+    export type ArrayWithOneOrMore<T> = [T, ...T[]];
   }
 
   // --
