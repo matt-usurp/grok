@@ -175,12 +175,15 @@ export namespace Grok {
     );
 
     /**
-     * A value check to validate that `A` extends `B`.
+     * A value check to validate that {@link A} extends {@link B}.
      */
     export type IsExtending<A, B> = (
-      A extends B
-        ? true
-        : false
+      Grok.Core.DetectLogicalFlaw<
+        A extends B
+          ? true
+          : false,
+        false
+      >
     );
 
     /**

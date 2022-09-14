@@ -161,6 +161,24 @@ export namespace Test_Grok {
       type Case_WithAny = Grok.Testing.AssertFalse<Grok.Value.IsInherit<any>>;
     }
 
+    /**
+     * {@link Grok.Value.IsExtending}
+     */
+    export namespace Test_Value_IsExtending {
+      type Case_WithOneOne = Grok.Testing.AssertTrue<Grok.Value.IsExtending<1, 1>>;
+      type Case_WithOneTwo = Grok.Testing.AssertFalse<Grok.Value.IsExtending<1, 2>>;
+      type Case_WithTwoOne = Grok.Testing.AssertFalse<Grok.Value.IsExtending<2, 1>>;
+
+      type Case_WithTrueBoolean = Grok.Testing.AssertTrue<Grok.Value.IsExtending<true, boolean>>;
+      type Case_WithFalseBoolean = Grok.Testing.AssertTrue<Grok.Value.IsExtending<false, boolean>>;
+      type Case_WithBooleanBoolean = Grok.Testing.AssertTrue<Grok.Value.IsExtending<boolean, boolean>>;
+
+      type Case_WithBooleanTrue = Grok.Testing.AssertFalse<Grok.Value.IsExtending<boolean, true>>;
+      type Case_WithBooleanFalse = Grok.Testing.AssertFalse<Grok.Value.IsExtending<boolean, false>>;
+    }
+
+    /**
+     * {@link Grok.Value.IsAny}
     export namespace Test_Value_IsAny {
       type Case_WithAny = Grok.Testing.AssertTrue<Grok.Value.IsAny<any>>;
 
