@@ -72,6 +72,22 @@ export namespace Test_Grok {
     }
   }
 
+  export namespace Test_And {
+    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.And<true, true>>;
+
+    type Case_WithTrueFalse = Grok.Testing.AssertFalse<Grok.And<true, false>>;
+    type Case_WithFalseTrue = Grok.Testing.AssertFalse<Grok.And<false, true>>;
+    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.And<false, false>>;
+  }
+
+  export namespace Test_Or {
+    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.Or<true, true>>;
+    type Case_WithTrueFalse = Grok.Testing.AssertTrue<Grok.Or<true, false>>;
+    type Case_WithFalseTrue = Grok.Testing.AssertTrue<Grok.Or<false, true>>;
+
+    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.Or<false, false>>;
+  }
+
   /**
    * {@link Grok.Value}
    */
@@ -90,13 +106,43 @@ export namespace Test_Grok {
       type Case_WithAny = Grok.Testing.AssertTrue<Grok.Value.IsAny<any>>;
 
       type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsAny<undefined>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsAny<void>>;
       type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.Value.IsAny<false>>;
       type Case_WithNumber = Grok.Testing.AssertFalse<Grok.Value.IsAny<123>>;
       type Case_WithString = Grok.Testing.AssertFalse<Grok.Value.IsAny<'test'>>;
 
       type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsAny<unknown>>;
-      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsAny<void>>;
       type Case_WithNever = Grok.Testing.AssertFalse<Grok.Value.IsAny<never>>;
+    }
+
+    export namespace Test_Value_IsTrue {
+      type Case_WithTrue = Grok.Testing.AssertTrue<Grok.Value.IsTrue<true>>;
+
+      type Case_WithFalse = Grok.Testing.AssertFalse<Grok.Value.IsTrue<false>>;
+
+      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsTrue<undefined>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsTrue<void>>;
+      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.Value.IsTrue<123>>;
+      type Case_WithString = Grok.Testing.AssertFalse<Grok.Value.IsTrue<'test'>>;
+
+      type Case_WithAny = Grok.Testing.AssertFalse<Grok.Value.IsTrue<any>>;
+      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsTrue<unknown>>;
+      type Case_WithNever = Grok.Testing.AssertFalse<Grok.Value.IsTrue<never>>;
+    }
+
+    export namespace Test_Value_IsFalse {
+      type Case_WithFalse = Grok.Testing.AssertTrue<Grok.Value.IsFalse<false>>;
+
+      type Case_WithTrue = Grok.Testing.AssertFalse<Grok.Value.IsFalse<true>>;
+
+      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsFalse<undefined>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsFalse<void>>;
+      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.Value.IsFalse<123>>;
+      type Case_WithString = Grok.Testing.AssertFalse<Grok.Value.IsFalse<'test'>>;
+
+      type Case_WithAny = Grok.Testing.AssertFalse<Grok.Value.IsFalse<any>>;
+      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsFalse<unknown>>;
+      type Case_WithNever = Grok.Testing.AssertFalse<Grok.Value.IsFalse<never>>;
     }
   }
 }
