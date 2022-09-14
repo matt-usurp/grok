@@ -1,4 +1,4 @@
-import * as inherit from './core/inherit';
+import { inherit } from './core/inherit';
 export { never } from './core/assert-never';
 export { noop } from './core/function';
 export { inherit } from './core/inherit';
@@ -31,12 +31,33 @@ export type Provider<T> = () => T;
  * Grok is an expressive series of type helpers and utilities.
  */
 export namespace Grok {
+  // --
+  // -- Inherit
+  // --
+
   /**
-   * A value type for a symbol that represents a unique action.
-   *
-   * For more information see {@link inherit.InheritActionType InheritActionType}.
+   * A value type for a symbol that represents the {@link inherit} action.
    */
-  export import Inherit = inherit.InheritActionType;
+  export type Inherit = typeof inherit;
+
+  export namespace Inherit {
+    /**
+     * Normalise the given {@link Value} to be {@link Grok.Inherit}.
+     *
+     * This essentially removes cases where the `any` type might be used and cause conflict.
+     * This value is converted to {@link Grok.Inherit} unless its something else.
+     */
+    export type Normalise<Value> = (
+      Grok.If<
+        Grok.Or<[
+          Grok.Value.IsAny<Value>,
+          Grok.Value.IsInherit<Value>,
+        ]>,
+        Grok.Inherit,
+        Value
+      >
+    );
+  }
 
   // --
   // -- Logic & Control Flow
