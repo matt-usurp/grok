@@ -1,6 +1,5 @@
 import { never } from './core/assert-never';
 import { noop } from './core/function';
-import type { InheritActionType } from './core/inherit';
 import { okey, okv, okvr } from './core/object';
 import { provide, union } from './core/value';
 import type { Grok } from './index';
@@ -40,9 +39,22 @@ export namespace Test_Grok {
       type Case_WithNoneInheritSymbol = Grok.Assert.IsFalse<Grok.Value.IsExactly<Grok.Inherit, typeof TestSymbol>>;
     }
 
+    export namespace Test_Inherit_Merge {
+      type Case_WithNormalOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 1 }>, { a: 1 }>>;
+      type Case_WithNormalOverlapIndividual = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 2 }>, { a: 2 }>>;
 
-      // @ts-expect-error Should only allow the inherit symbol.
-      type Case_WithNoneInheritSymbol = Test<TestSymbolKind>;
+      type Case_WithInheritOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: Grok.Inherit }, { a: Grok.Inherit }>, { a: Grok.Inherit }>>;
+      type Case_WithInheritFromLeft = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: Grok.Inherit }>, { a: 1 }>>;
+      type Case_WithInheritFromRight = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: Grok.Inherit }, { a: 1 }>, { a: 1 }>>;
+    }
+
+    export namespace Test_Inherit_Normalise {
+      type Case_WithAny = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<any>>>;
+      type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<Grok.Inherit>>>;
+
+      type Case_WithUndefined = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<undefined>>>;
+      type Case_WithVoid = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<void>>>;
+      type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<never>>>;
     }
   }
 
@@ -125,6 +137,8 @@ export namespace Test_Grok {
     type Case_NameAny = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Merge<{ name: string }, any>, { name: string }>>;
     type Case_AnyAge = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Merge<any, { age: number }>, { age: number }>>;
     type Case_AnyAny = Grok.Assert.IsNever<Grok.Merge<any, any>>;
+
+    type Case_WithOverlapIndividual = Grok.Assert.IsNever<Grok.Merge<{ a: 1 }, { a: 2 }>>;
   }
 
   /**
