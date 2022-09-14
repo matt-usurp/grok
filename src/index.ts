@@ -292,37 +292,39 @@ export namespace Grok {
   }
 
   /**
-   * Type testing assertions and utility types.
+   * Assertion type that checks that {@link A} is the same as {@link B}.
+   *
+   * As an assertion type, the return value of this utility should be ignored.
+   * Although the return value can be used when hovering to see if the test has "passed" at a glance.
    *
    * These can be used within unit-like test cases for types, the constraints enforce the case is correct at build time.
    */
-  export namespace Testing {
+  export type Assert<A, B extends A> = (
+    B extends A
+      ? 'assert:pass'
+      : 'assert:fail'
+  );
+
+  export namespace Assert {
     /**
-     * Assertion type that checks that {@link A} is the same as {@link B}.
+     * Assertion type that checks that {@link Value} is `true`.
      *
      * As an assertion type, the return value of this utility should be ignored.
      */
-    export type Assert<A, B extends A> = B;
+    export type IsTrue<Value extends true> = Grok.Assert<true, Value>;
 
     /**
-     * Assertion type that checks that {@link T} is `true`.
+     * Assertion type that checks that {@link Value} is `false`.
      *
      * As an assertion type, the return value of this utility should be ignored.
      */
-    export type AssertTrue<T extends true> = T;
+    export type IsFalse<Value extends false> = Grok.Assert<false, Value>;
 
     /**
-     * Assertion type that checks that {@link T} is `false`.
+     * Assertion type that checks that {@link Value} is `never`.
      *
      * As an assertion type, the return value of this utility should be ignored.
      */
-    export type AssertFalse<T extends false> = T;
-
-    /**
-     * Assertion type that checks that {@link T} is `never`.
-     *
-     * As an assertion type, the return value of this utility should be ignored.
-     */
-    export type AssertNever<T extends never> = T;
+    export type IsNever<Value extends never> = Grok.Assert<never, Value>;
   }
 }
