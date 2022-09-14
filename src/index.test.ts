@@ -94,11 +94,15 @@ export namespace Test_Grok {
    * {@link Grok.Or}
    */
   export namespace Test_Or {
-    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.Or<true, true>>;
-    type Case_WithTrueFalse = Grok.Testing.AssertTrue<Grok.Or<true, false>>;
-    type Case_WithFalseTrue = Grok.Testing.AssertTrue<Grok.Or<false, true>>;
+    type Case_WithTrue = Grok.Testing.AssertTrue<Grok.Or<[true]>>;
+    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.Or<[true, true]>>;
+    type Case_WithTrueFalse = Grok.Testing.AssertTrue<Grok.Or<[true, false]>>;
+    type Case_WithFalseTrue = Grok.Testing.AssertTrue<Grok.Or<[false, true]>>;
+    type Case_WithFalseFalseTrue = Grok.Testing.AssertTrue<Grok.Or<[false, false, true]>>;
 
-    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.Or<false, false>>;
+    type Case_WithFalse = Grok.Testing.AssertFalse<Grok.Or<[false]>>;
+    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.Or<[false, false]>>;
+    type Case_WithFalseFalseFalse = Grok.Testing.AssertFalse<Grok.Or<[false, false, false]>>;
   }
 
   /**

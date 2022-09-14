@@ -71,38 +71,35 @@ export namespace Grok {
   }
 
   /**
-   * A logical `AND` gate that returns true when both given values are true.
+   * A logical `AND` gate that returns `true` when all values of {@link Arguments} are `true`.
    */
-  export type And<T extends [boolean, ...boolean[]]> = (
-    T extends true[]
+  export type And<Arguments extends Grok.Constraint.ArrayWithOneOrMore<boolean>> = (
+    Arguments extends true[]
       ? true
       : false
   );
 
   /**
-   * A logical `OR` gate that returns true if any of the values are true.
+   * A logical `OR` gate that returns `true` when any value of {@link Arguments} is `true`.
    */
-   export type Or<A extends boolean, B extends boolean> = (
-    A extends true
-      ? true
-      : (
-        B extends true
-          ? true
-          : false
-      )
+   export type Or<Arguments extends Grok.Constraint.ArrayWithOneOrMore<boolean>> = (
+    Grok.Has<true, Arguments>
   );
 
   /**
-   * A logical `NOT` gate that returns true when given false, and false when given true.
+   * A logical `NOT` gate that negates the {@link Value}.
    */
-  export type Not<Input extends boolean> = (
-    Input extends true
+  export type Not<Value extends boolean> = (
+    Value extends true
       ? false
       : true
   );
 
-  export type Has<V, T extends Grok.Constraint.ArrayWithOneOrMore<Grok.Constraint.Anything>> = (
-    V extends Grok.Union.FromArray<T>
+  /**
+   * A check that looks for {@link Needle} in {@link Haystack}.
+   */
+  export type Has<Needle, Haystack extends Grok.Constraint.ArrayWithOneOrMore<Grok.Constraint.Anything>> = (
+    Needle extends Grok.Union.FromArray<Haystack>
       ? true
       : false
   );
