@@ -219,6 +219,22 @@ export namespace Test_Grok {
     }
 
     /**
+     * {@link Grok.Value.IsNever}
+     */
+    export namespace Test_Value_IsAny {
+      type Case_WithNever = Grok.Testing.AssertTrue<Grok.Value.IsNever<never>>;
+
+      type Case_WithUndefined = Grok.Testing.AssertFalse<Grok.Value.IsNever<undefined>>;
+      type Case_WithVoid = Grok.Testing.AssertFalse<Grok.Value.IsNever<void>>;
+      type Case_WithBoolean = Grok.Testing.AssertFalse<Grok.Value.IsNever<false>>;
+      type Case_WithNumber = Grok.Testing.AssertFalse<Grok.Value.IsNever<123>>;
+      type Case_WithString = Grok.Testing.AssertFalse<Grok.Value.IsNever<'test'>>;
+
+      type Case_WithUnknown = Grok.Testing.AssertFalse<Grok.Value.IsNever<unknown>>;
+      type Case_WithAny = Grok.Testing.AssertFalse<Grok.Value.IsNever<any>>;
+    }
+
+    /**
      * {@link Grok.Value.IsBoolean}
      */
     export namespace Test_Value_IsBoolean {
