@@ -73,11 +73,18 @@ export namespace Test_Grok {
   }
 
   export namespace Test_And {
-    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.And<true, true>>;
+    type Case_WithTrue = Grok.Testing.AssertTrue<Grok.And<[true]>>;
+    type Case_WithTrueTrue = Grok.Testing.AssertTrue<Grok.And<[true, true]>>;
+    type Case_WithTrueTrueTrue = Grok.Testing.AssertTrue<Grok.And<[true, true, true]>>;
 
-    type Case_WithTrueFalse = Grok.Testing.AssertFalse<Grok.And<true, false>>;
-    type Case_WithFalseTrue = Grok.Testing.AssertFalse<Grok.And<false, true>>;
-    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.And<false, false>>;
+    // @ts-expect-error And<[]> should expect at least one element.
+    type Case_WithEmpty = Grok.Testing.AssertFalse<Grok.And<[]>>;
+
+    type Case_WithFalse = Grok.Testing.AssertFalse<Grok.And<[false]>>;
+    type Case_WithTrueFalse = Grok.Testing.AssertFalse<Grok.And<[true, false]>>;
+    type Case_WithFalseTrue = Grok.Testing.AssertFalse<Grok.And<[false, true]>>;
+    type Case_WithFalseFalse = Grok.Testing.AssertFalse<Grok.And<[false, false]>>;
+    type Case_WithFalseFalseTrue = Grok.Testing.AssertFalse<Grok.And<[false, false, true]>>;
   }
 
   export namespace Test_Or {

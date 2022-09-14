@@ -73,13 +73,9 @@ export namespace Grok {
   /**
    * A logical `AND` gate that returns true when both given values are true.
    */
-  export type And<A extends boolean, B extends boolean> = (
-    A extends true
-      ? (
-        B extends true
-          ? true
-          : false
-      )
+  export type And<T extends [boolean, ...boolean[]]> = (
+    T extends true[]
+      ? true
       : false
   );
 
@@ -211,20 +207,22 @@ export namespace Grok {
      * Check the {@link Value} is the boolean `true`.
      */
     export type IsTrue<Value> = (
-      Grok.And<
+      Grok.And<[
         Grok.Not<Grok.Value.IsAny<Value>>,
-        Grok.Value.IsExactly<Value, true>
-      >
+        Grok.Not<Grok.Value.IsNever<Value>>,
+        Grok.Value.IsExactly<Value, true>,
+      ]>
     );
 
     /**
      * Check the {@link Value} is the boolean `false`.
      */
     export type IsFalse<Value> = (
-      Grok.And<
+      Grok.And<[
         Grok.Not<Grok.Value.IsAny<Value>>,
-        Grok.Value.IsExactly<Value, false>
-      >
+        Grok.Not<Grok.Value.IsNever<Value>>,
+        Grok.Value.IsExactly<Value, false>,
+      ]>
     );
   }
 
