@@ -1,9 +1,9 @@
-import { inherit, isInherit } from './inherit';
+import { GrokInherit, isInherit } from './inherit';
 
 describe('isInherit()', (): void => {
   it('with inherit symbol, return true', (): void => {
     expect(
-      isInherit(inherit),
+      isInherit(GrokInherit),
     ).toStrictEqual(true);
   });
 
