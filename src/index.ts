@@ -111,16 +111,52 @@ export namespace Grok {
 
   export namespace If {
     /**
-     * A local `if-statement` that returns {@link Then} when {@link Value} is `any` and {@link Else} when it is not.
-     *
-     * A syntax shortcut for {@link Grok.If} and {@link Grok.Value.IsAny}.
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsInherit}.
+     */
+    export type IsInherit<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsInherit<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsAny}.
      */
     export type IsAny<Value, Then, Else> = (
-      Grok.If<
-        Grok.Value.IsAny<Value>,
-        Then,
-        Else
-      >
+      Grok.If<Grok.Value.IsAny<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsNever}.
+     */
+    export type IsNever<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsNever<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsUnknown}.
+     */
+    export type IsUnknown<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsUnknown<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsBoolean}.
+     */
+    export type IsBoolean<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsBoolean<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsTrue}.
+     */
+    export type IsTrue<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsTrue<Value>, Then, Else>
+    );
+
+    /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsFalse}.
+     */
+    export type IsFalse<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsFalse<Value>, Then, Else>
     );
   }
 
@@ -296,8 +332,8 @@ export namespace Grok {
      * Done by abusing tuples and their values that can not be `never`, therefore the value is ignored.
      * When the value is `never` the tuple lengths will be different and therefore not match.
      */
-    export type IsNever<V> = (
-      [V] extends [never]
+    export type IsNever<Value> = (
+      [Value] extends [never]
         ? true
         : false
     );
@@ -308,7 +344,7 @@ export namespace Grok {
      * Done by testing that multiple super types extend it, which is the point of unknown.
      * To be sure its `unknown` we also test that it is not the `any` and `never` types.
      */
-    export type IsUnkown<Value> = (
+    export type IsUnknown<Value> = (
       Grok.And<[
         Grok.Not<Grok.Value.IsAny<Value>>,
         Grok.Not<Grok.Value.IsNever<Value>>,
@@ -325,7 +361,12 @@ export namespace Grok {
      */
     export type IsBoolean<Value> = (
       boolean extends Value
-        ? true
+        ? (
+          Grok.And<[
+            Grok.Not<Grok.Value.IsAny<Value>>,
+            Grok.Not<Grok.Value.IsNever<Value>>
+          ]>
+        )
         : false
     );
 
@@ -364,17 +405,15 @@ export namespace Grok {
      * Within the logical checks we only use booleans, so this is syntax sugar around a simplistic check.
      */
     export type DetectLogicalFlaw<Value extends boolean, Fallback extends boolean> = (
-      Grok.If<
-        Grok.Value.IsBoolean<Value>,
-        Fallback,
-        Value
-      >
+      Grok.If.IsBoolean<Value, Fallback, Value>
     );
 
     /**
      * Construct a constraint type from the given {@link Value}.
      */
-    export type ConstraintFrom<Value extends Grok.Constraint.ObjectLike> = Record<keyof Value, unknown>;
+    export type ConstraintFrom<Value extends Grok.Constraint.ObjectLike> = (
+      Record<keyof Value, unknown>
+    );
   }
 
   /**
