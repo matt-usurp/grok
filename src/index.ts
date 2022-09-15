@@ -62,8 +62,8 @@ export namespace Grok {
                 Grok.Value.IsInherit<Grok.Inherit.Normalise<A[K]>>,
                 Grok.Value.IsInherit<Grok.Inherit.Normalise<B[K]>>,
               ]>,
-              Grok.If<
-                Grok.Value.IsInherit<Grok.Inherit.Normalise<A[K]>>,
+              Grok.If.IsInherit<
+                Grok.Inherit.Normalise<A[K]>,
                 Grok.Inherit.Normalise<B[K]>,
                 Grok.Inherit.Normalise<A[K]>
               >,
