@@ -303,6 +303,22 @@ export namespace Grok {
     );
 
     /**
+     * Check that {@link Value} is the `unknown` type.
+     *
+     * Done by testing that multiple super types extend it, which is the point of unknown.
+     * To be sure its `unknown` we also test that it is not the `any` and `never` types.
+     */
+    export type IsUnkown<Value> = (
+      Grok.And<[
+        Grok.Not<Grok.Value.IsAny<Value>>,
+        Grok.Not<Grok.Value.IsNever<Value>>,
+        boolean extends Value ? true : false,
+        number extends Value ? true : false,
+        string extends Value ? true : false,
+      ]>
+    );
+
+    /**
      * Check the {@link Value} is the `boolean` type.
      *
      * This will return `false` for both `true` and `false`, this needs to be the union of both.
