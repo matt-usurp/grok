@@ -266,6 +266,28 @@ export namespace Test_Grok {
 
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsNever<unknown>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsNever<any>>;
+
+    /**
+     * {@link Grok.Value.IsUnkown}
+     */
+    export namespace Test_Value_IsUnkown {
+      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsUnkown<Grok.Inherit>>;
+      type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsUnkown<any>>;
+      type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsUnkown<never>>;
+      type Case_WithUnknown = Grok.Assert.IsTrue<Grok.Value.IsUnkown<unknown>>;
+      type Case_WithUndefined = Grok.Assert.IsFalse<Grok.Value.IsUnkown<undefined>>;
+      type Case_WithVoid = Grok.Assert.IsFalse<Grok.Value.IsUnkown<void>>;
+
+      type Case_WithBoolean = Grok.Assert.IsFalse<Grok.Value.IsUnkown<boolean>>;
+      type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.Value.IsUnkown<true>>;
+      type Case_WithBooleanFalse = Grok.Assert.IsFalse<Grok.Value.IsUnkown<false>>;
+
+      type Case_WithNumber = Grok.Assert.IsFalse<Grok.Value.IsUnkown<number>>;
+      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.Value.IsUnkown<123>>;
+      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.Value.IsUnkown<1.234>>;
+
+      type Case_WithString = Grok.Assert.IsFalse<Grok.Value.IsUnkown<string>>;
+      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.Value.IsUnkown<'test'>>;
     }
 
     /**
