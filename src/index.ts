@@ -426,8 +426,8 @@ export namespace Grok {
    */
   export type Assert<A, B extends A> = (
     B extends A
-      ? 'assert:pass'
-      : 'assert:fail'
+      ? 'assertion:passed'
+      : 'assertion:failed'
   );
 
   export namespace Assert {
