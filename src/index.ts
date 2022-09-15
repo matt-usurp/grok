@@ -1,7 +1,7 @@
-import { inherit } from './core/inherit';
+import { GrokInherit } from './core/inherit';
 export { never } from './core/assert-never';
 export { noop } from './core/function';
-export { inherit } from './core/inherit';
+export { GrokInherit } from './core/inherit';
 export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
 
@@ -36,9 +36,9 @@ export namespace Grok {
   // --
 
   /**
-   * A value type for a symbol that represents the {@link inherit} action.
+   * A value type for a symbol that represents the {@link GrokInherit} action.
    */
-  export type Inherit = typeof inherit;
+  export type Inherit = typeof GrokInherit;
 
   export namespace Inherit {
     /**

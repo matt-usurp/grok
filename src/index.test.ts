@@ -1,6 +1,6 @@
 import { never } from './core/assert-never';
 import { noop } from './core/function';
-import { inherit } from './core/inherit';
+import { GrokInherit } from './core/inherit';
 import { okey, okv, okvr } from './core/object';
 import { provide, union } from './core/value';
 import type { Grok } from './index';
@@ -14,7 +14,7 @@ describe('exports', (): void => {
   it('exports noop', () => expect(index.noop).toStrictEqual(noop));
 
   // core/inherit
-  it('exports iherit', (): void => expect(index.inherit).toStrictEqual(inherit));
+  it('exports iherit', (): void => expect(index.GrokInherit).toStrictEqual(GrokInherit));
 
   // core/object
   it('exports okv', () => expect(index.okv).toStrictEqual(okv));
