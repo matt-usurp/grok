@@ -36,13 +36,19 @@ export namespace Test_Grok {
    * {@link Grok.Inherit}
    */
   export namespace Test_Inherit {
-    const TestSymbol = Symbol('test:inherit');
-
+    /**
+     * {@link Grok.Inherit}
+     */
     export namespace Test_Inherit_IsUnique {
+      const TestSymbol = Symbol('test:inherit');
+
       type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit, Grok.Inherit>>;
       type Case_WithNoneInheritSymbol = Grok.Assert.IsFalse<Grok.Value.IsExactly<Grok.Inherit, typeof TestSymbol>>;
     }
 
+    /**
+     * {@link Grok.Inherit.Merge}
+     */
     export namespace Test_Inherit_Merge {
       type Case_WithNormalOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 1 }>, { a: 1 }>>;
       type Case_WithNormalOverlapIndividual = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 2 }>, { a: 1 }>>;
@@ -52,6 +58,21 @@ export namespace Test_Grok {
       type Case_WithInheritFromRight = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: Grok.Inherit }, { a: 1 }>, { a: 1 }>>;
     }
 
+    /**
+     * {@link Grok.Inherit.Union}
+     */
+    export namespace Test_Inherit_Union {
+      type Case_WithNormalUnion = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<{ a: 1 }, { b: 2 }>, { a: 1 } | { b: 2 }>>;
+      type Case_WithNormalUnionOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<{ a: 1 }, { a: 2 }>, { a: 1 | 2 }>>;
+
+      type CaseWithInheritOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<Grok.Inherit, Grok.Inherit>, Grok.Inherit>>;
+      type CaseWithInheritFromLeft = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<1, Grok.Inherit>, 1>>;
+      type CaseWithInheritFromRight = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<Grok.Inherit, 1>, 1>>;
+    }
+
+    /**
+     * {@link Grok.Inherit.Normalise}
+     */
     export namespace Test_Inherit_Normalise {
       type Case_WithAny = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<any>>>;
       type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<Grok.Inherit>>>;

@@ -75,6 +75,28 @@ export namespace Grok {
     );
 
     /**
+     * A {@link Grok.Union} that will acknowledge {@link Grok.Inherit}.
+     *
+     * When a value within either {@link A} or {@link B} is {@link Grok.Inherit} (or is the `any` type) then the other is picked.
+     * When both values are {@link Grok.Inherit} then {@link Grok.Inherit} is returned.
+     * When both values are provided then a normal union takes place.
+     */
+    export type Union<A, B> = (
+      Grok.If<
+        Grok.Or<[
+          Grok.Value.IsInherit<Grok.Inherit.Normalise<A>>,
+          Grok.Value.IsInherit<Grok.Inherit.Normalise<B>>,
+        ]>,
+        Grok.If.IsInherit<
+          Grok.Inherit.Normalise<A>,
+          Grok.Inherit.Normalise<B>,
+          Grok.Inherit.Normalise<A>
+        >,
+        Grok.Union<A, B>
+      >
+    );
+
+    /**
      * Normalise the given {@link Value} to be {@link Grok.Inherit}.
      *
      * This essentially removes cases where the `any` type might be used and cause conflict.
