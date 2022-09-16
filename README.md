@@ -92,7 +92,7 @@ type MyValue = (
 - `okvr()` a key accessor with validation and requirements
 - `okey()` a type `keyof` assistance
 - `union()` a union value enforcement
-- 'provide()` a helper for creating `Provider<T>`
+- `provide()` a helper for creating `Provider<T>`
 
 ## Testing Helpers
 
