@@ -1,9 +1,9 @@
 import { GrokInherit } from './core/inherit';
 export { never } from './core/assert-never';
 export { noop } from './core/function';
-export { GrokInherit } from './core/inherit';
 export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
+export { GrokInherit };
 
 /**
  * A utility to add `undefined` as a possible value to {@link T}.
