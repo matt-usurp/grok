@@ -216,6 +216,15 @@ export namespace Grok {
      * Convert the given {@link T} (`any[]`) to a union of its values.
      */
     export type FromArray<T extends any[]> = T[number];
+
+    /**
+     * Check the {@link Union} contains the {@link Value}.
+     */
+    export type Has<Union, Value> = (
+      Value extends Union
+        ? true
+        : false
+    )
   }
 
   /**
