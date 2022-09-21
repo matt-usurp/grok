@@ -279,6 +279,35 @@ export namespace Test_Grok {
       type Case_WithOneTwo = Grok.Assert<1 | 2, Grok.Union.FromArray<[1, 2]>>;
       type Case_WithOneTwoThree = Grok.Assert<1 | 2 | 3, Grok.Union.FromArray<[1, 2, 3]>>;
     }
+
+    /**
+     * {@link Grok.Union.Has}
+     */
+    export namespace Test_Union_Has {
+      type Assert_WithoutValue = (
+        Grok.Assert.IsFalse<
+          Grok.Value.IsTrue<
+            Grok.Union.Has<1 | 2, 3>
+          >
+        >
+      );
+
+      type Assert_WithValueExact = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsTrue<
+            Grok.Union.Has<1, 1>
+          >
+        >
+      );
+
+      type Assert_WithValue = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsTrue<
+            Grok.Union.Has<1 | 2, 2>
+          >
+        >
+      );
+    }
   }
 
   /**
