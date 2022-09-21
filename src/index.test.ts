@@ -438,6 +438,24 @@ export namespace Test_Grok {
           >
         >
       );
+
+      type Assert_WithRecord_HasNoOptionalFlag_KeyValueHasAny_ReturnTrue = (
+        Grok.Assert.IsFalse<
+          Grok.Record.IsKeyOptional<
+            { a: any },
+            'a'
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasOptionalFlag_KeyValueHasAny_ReturnTrue = (
+        Grok.Assert.IsTrue<
+          Grok.Record.IsKeyOptional<
+            { a?: any },
+            'a'
+          >
+        >
+      );
     }
   }
 
