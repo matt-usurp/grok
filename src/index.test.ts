@@ -308,6 +308,30 @@ export namespace Test_Grok {
         >
       );
     }
+
+    /**
+     * {@link Grok.Union.FromArray}
+     */
+    export namespace Test_Union_RemoveValue {
+      type Assert_WithoutValue = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Union.RemoveValue<1 | 2, 3>,
+            1 | 2
+          >
+        >
+      );
+
+      type Assert_WithValue = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Union.RemoveValue<1 | 2, 2>,
+            1
+          >
+        >
+      );
+    }
+  }
   }
 
   /**
