@@ -1,6 +1,5 @@
 import { never } from './core/assert-never';
 import { noop } from './core/function';
-import { GrokInherit } from './core/inherit';
 import { okey, okv, okvr } from './core/object';
 import { provide, union } from './core/value';
 import type { Grok } from './index';
@@ -12,9 +11,6 @@ describe('exports', (): void => {
 
   // core/function
   it('exports noop', () => expect(index.noop).toStrictEqual(noop));
-
-  // core/inherit
-  it('exports iherit', (): void => expect(index.GrokInherit).toStrictEqual(GrokInherit));
 
   // core/object
   it('exports okv', () => expect(index.okv).toStrictEqual(okv));
@@ -33,57 +29,6 @@ describe('exports', (): void => {
  */
 export namespace Test_Grok {
   /**
-   * {@link Grok.Inherit}
-   */
-  export namespace Test_Inherit {
-    /**
-     * {@link Grok.Inherit}
-     */
-    export namespace Test_Inherit_IsUnique {
-      const TestSymbol = Symbol('test:inherit');
-
-      type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit, Grok.Inherit>>;
-      type Case_WithNoneInheritSymbol = Grok.Assert.IsFalse<Grok.Value.IsExactly<Grok.Inherit, typeof TestSymbol>>;
-    }
-
-    /**
-     * {@link Grok.Inherit.Merge}
-     */
-    export namespace Test_Inherit_Merge {
-      type Case_WithNormalOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 1 }>, { a: 1 }>>;
-      type Case_WithNormalOverlapIndividual = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: 2 }>, { a: 1 }>>;
-
-      type Case_WithInheritOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: Grok.Inherit }, { a: Grok.Inherit }>, { a: Grok.Inherit }>>;
-      type Case_WithInheritFromLeft = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: 1 }, { a: Grok.Inherit }>, { a: 1 }>>;
-      type Case_WithInheritFromRight = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Merge<{ a: Grok.Inherit }, { a: 1 }>, { a: 1 }>>;
-    }
-
-    /**
-     * {@link Grok.Inherit.Union}
-     */
-    export namespace Test_Inherit_Union {
-      type Case_WithNormalUnion = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<{ a: 1 }, { b: 2 }>, { a: 1 } | { b: 2 }>>;
-      type Case_WithNormalUnionOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<{ a: 1 }, { a: 2 }>, { a: 1 | 2 }>>;
-
-      type CaseWithInheritOverlap = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<Grok.Inherit, Grok.Inherit>, Grok.Inherit>>;
-      type CaseWithInheritFromLeft = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<1, Grok.Inherit>, 1>>;
-      type CaseWithInheritFromRight = Grok.Assert.IsTrue<Grok.Value.IsExactly<Grok.Inherit.Union<Grok.Inherit, 1>, 1>>;
-    }
-
-    /**
-     * {@link Grok.Inherit.Normalise}
-     */
-    export namespace Test_Inherit_Normalise {
-      type Case_WithAny = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<any>>>;
-      type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit.Normalise<Grok.Inherit>>>;
-
-      type Case_WithUndefined = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<undefined>>>;
-      type Case_WithVoid = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<void>>>;
-      type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsInherit<Grok.Inherit.Normalise<never>>>;
-    }
-  }
-
-  /**
    * {@link Grok.If}
    */
   export namespace Test_If {
@@ -97,33 +42,9 @@ export namespace Test_Grok {
     }
 
     /**
-     * {@link Grok.If.IsInherit}
-     */
-     export namespace Test_If_IsInherit {
-      type Case_WithInherit = Grok.Assert.IsTrue<Grok.If.IsInherit<Grok.Inherit, true, false>>;
-      type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsInherit<any, true, false>>;
-      type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsInherit<never, true, false>>;
-      type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsInherit<unknown, true, false>>;
-      type Case_WithUndefined = Grok.Assert.IsFalse<Grok.If.IsInherit<undefined, true, false>>;
-      type Case_WithVoid = Grok.Assert.IsFalse<Grok.If.IsInherit<void, true, false>>;
-
-      type Case_WithBoolean = Grok.Assert.IsFalse<Grok.If.IsInherit<boolean, true, false>>;
-      type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.If.IsInherit<true, true, false>>;
-      type Case_WithBooleanFalse = Grok.Assert.IsFalse<Grok.If.IsInherit<false, true, false>>;
-
-      type Case_WithNumber = Grok.Assert.IsFalse<Grok.If.IsInherit<number, true, false>>;
-      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.If.IsInherit<123, true, false>>;
-      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.If.IsInherit<1.234, true, false>>;
-
-      type Case_WithString = Grok.Assert.IsFalse<Grok.If.IsInherit<string, true, false>>;
-      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.If.IsInherit<'test', true, false>>;
-    }
-
-    /**
      * {@link Grok.If.IsAny}
      */
     export namespace Test_If_IsAny {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsAny<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsTrue<Grok.If.IsAny<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsAny<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsAny<unknown, true, false>>;
@@ -134,19 +55,18 @@ export namespace Test_Grok {
       type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.If.IsAny<true, true, false>>;
       type Case_WithBooleanFalse = Grok.Assert.IsFalse<Grok.If.IsAny<false, true, false>>;
 
-      type Case_WithNumber = Grok.Assert.IsFalse<Grok.If.IsInherit<number, true, false>>;
-      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.If.IsInherit<123, true, false>>;
-      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.If.IsInherit<1.234, true, false>>;
+      type Case_WithNumber = Grok.Assert.IsFalse<Grok.If.IsAny<number, true, false>>;
+      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.If.IsAny<123, true, false>>;
+      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.If.IsAny<1.234, true, false>>;
 
-      type Case_WithString = Grok.Assert.IsFalse<Grok.If.IsInherit<string, true, false>>;
-      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.If.IsInherit<'test', true, false>>;
+      type Case_WithString = Grok.Assert.IsFalse<Grok.If.IsAny<string, true, false>>;
+      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.If.IsAny<'test', true, false>>;
     }
 
     /**
      * {@link Grok.If.IsNever}
      */
     export namespace Test_If_IsNever {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsNever<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsNever<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsTrue<Grok.If.IsNever<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsNever<unknown, true, false>>;
@@ -169,7 +89,6 @@ export namespace Test_Grok {
      * {@link Grok.If.IsUnknown}
      */
     export namespace Test_If_IsUnknown {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsUnknown<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsUnknown<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsUnknown<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsTrue<Grok.If.IsUnknown<unknown, true, false>>;
@@ -192,7 +111,6 @@ export namespace Test_Grok {
      * {@link Grok.If.IsBoolean}
      */
     export namespace Test_If_IsBoolean {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsBoolean<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsBoolean<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsBoolean<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsTrue<Grok.If.IsBoolean<unknown, true, false>>;
@@ -215,7 +133,6 @@ export namespace Test_Grok {
      * {@link Grok.If.IsTrue}
      */
     export namespace Test_If_IsTrue {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsTrue<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsTrue<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsTrue<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsTrue<unknown, true, false>>;
@@ -238,7 +155,6 @@ export namespace Test_Grok {
      * {@link Grok.If.IsFalse}
      */
     export namespace Test_If_IsFalse {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.If.IsFalse<Grok.Inherit, true, false>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.If.IsFalse<any, true, false>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsFalse<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsFalse<unknown, true, false>>;
@@ -363,29 +279,6 @@ export namespace Test_Grok {
    */
   export namespace Test_Value {
     /**
-     * {@link Grok.Value.IsInherit}
-     */
-    export namespace Test_Value_IsInherit {
-      type Case_WithInherit = Grok.Assert.IsTrue<Grok.Value.IsInherit<Grok.Inherit>>;
-      type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsInherit<any>>;
-      type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsInherit<never>>;
-      type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsInherit<unknown>>;
-      type Case_WithUndefined = Grok.Assert.IsFalse<Grok.Value.IsInherit<undefined>>;
-      type Case_WithVoid = Grok.Assert.IsFalse<Grok.Value.IsInherit<void>>;
-
-      type Case_WithBoolean = Grok.Assert.IsFalse<Grok.Value.IsInherit<boolean>>;
-      type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.Value.IsInherit<true>>;
-      type Case_WithBooleanFalse = Grok.Assert.IsFalse<Grok.Value.IsInherit<false>>;
-
-      type Case_WithNumber = Grok.Assert.IsFalse<Grok.Value.IsInherit<number>>;
-      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.Value.IsInherit<123>>;
-      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.Value.IsInherit<1.234>>;
-
-      type Case_WithString = Grok.Assert.IsFalse<Grok.Value.IsInherit<string>>;
-      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.Value.IsInherit<'test'>>;
-    }
-
-    /**
      * {@link Grok.Value.IsExtending}
      */
     export namespace Test_Value_IsExtending {
@@ -423,7 +316,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsAny}
      */
     export namespace Test_Value_IsAny {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsAny<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsTrue<Grok.Value.IsAny<any>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsAny<never>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsAny<unknown>>;
@@ -446,7 +338,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsNever}
      */
     export namespace Test_Value_IsNever {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsNever<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsNever<any>>;
       type Case_WithNever = Grok.Assert.IsTrue<Grok.Value.IsNever<never>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsNever<unknown>>;
@@ -469,7 +360,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsUnknown}
      */
     export namespace Test_Value_IsUnknown {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsUnknown<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsUnknown<any>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsUnknown<never>>;
       type Case_WithUnknown = Grok.Assert.IsTrue<Grok.Value.IsUnknown<unknown>>;
@@ -492,7 +382,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsBoolean}
      */
     export namespace Test_Value_IsBoolean {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsBoolean<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsBoolean<any>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsBoolean<never>>;
       type Case_WithUnknown = Grok.Assert.IsTrue<Grok.Value.IsBoolean<unknown>>;
@@ -515,7 +404,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsTrue}
      */
     export namespace Test_Value_IsTrue {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsTrue<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsTrue<any>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsTrue<never>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsTrue<unknown>>;
@@ -538,7 +426,6 @@ export namespace Test_Grok {
      * {@link Grok.Value.IsFalse}
      */
     export namespace Test_Value_IsFalse {
-      type Case_WithInherit = Grok.Assert.IsFalse<Grok.Value.IsFalse<Grok.Inherit>>;
       type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsFalse<any>>;
       type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsFalse<never>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsFalse<unknown>>;
