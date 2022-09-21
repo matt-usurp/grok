@@ -379,6 +379,30 @@ export namespace Test_Grok {
     }
 
     /**
+     * {@link Grok.Value.IsUndefined}
+     */
+    export namespace Test_Value_IsUndefined {
+      type Case_WithAny = Grok.Assert.IsFalse<Grok.Value.IsUndefined<any>>;
+      type Case_WithNever = Grok.Assert.IsFalse<Grok.Value.IsUndefined<never>>;
+      type Case_WithUnknown = Grok.Assert.IsFalse<Grok.Value.IsUndefined<unknown>>;
+      type Case_WithUndefined = Grok.Assert.IsTrue<Grok.Value.IsUndefined<undefined>>;
+      type Case_WithVoid = Grok.Assert.IsTrue<Grok.Value.IsUndefined<void>>;
+
+      type Case_WithBoolean = Grok.Assert.IsFalse<Grok.Value.IsUndefined<boolean>>;
+      type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.Value.IsUndefined<true>>;
+      type Case_WithBooleanFalse = Grok.Assert.IsFalse<Grok.Value.IsUndefined<false>>;
+
+      type Case_WithNumber = Grok.Assert.IsFalse<Grok.Value.IsUndefined<number>>;
+      type Case_WithNumberInteger = Grok.Assert.IsFalse<Grok.Value.IsUndefined<123>>;
+      type Case_WithNumberFloat = Grok.Assert.IsFalse<Grok.Value.IsUndefined<1.234>>;
+
+      type Case_WithString = Grok.Assert.IsFalse<Grok.Value.IsUndefined<string>>;
+      type Case_WithStringLiteral = Grok.Assert.IsFalse<Grok.Value.IsUndefined<'test'>>;
+
+      type Case_WithUnion = Grok.Assert.IsTrue<Grok.Value.IsUndefined<1 | undefined>>;
+    }
+
+    /**
      * {@link Grok.Value.IsBoolean}
      */
     export namespace Test_Value_IsBoolean {
