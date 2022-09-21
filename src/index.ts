@@ -235,6 +235,34 @@ export namespace Grok {
         : Union
     );
   }
+
+  /**
+   * A series of types for `Record<X, Y>` types.
+   */
+  export namespace Record {
+    /**
+     * Remove the type {@link V} from the record type {@link T}.
+     */
+    export type RemoveValue<T, V> = {
+      [K in keyof T]: Grok.Union.RemoveValue<T[K], V>;
+    };
+
+    export type IsKeyOptional<Value, Key extends keyof Value> = (
+      Grok.If.IsUndefined<
+        Value[Key],
+        Grok.Not<
+          Grok.Value.IsExactly<
+            // Removed undefined from all values and picked the keys value.
+            // In theory, if this is `?` then undefined should still be here.
+            Grok.Record.RemoveValue<Value, undefined>[Key],
+            // When compared to the keys value without undefined.
+            // There should not be a match, meaning the key is flagged with optional (`?`).
+            Grok.Union.RemoveValue<Value[Key], undefined>
+          >
+        >,
+        false
+      >
+    );
   }
 
   /**
