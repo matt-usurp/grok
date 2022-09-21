@@ -258,19 +258,24 @@ export namespace Grok {
      * Check if the {@link Key} is marked as optional (`?`) within {@link Value}.
      */
     export type IsKeyOptional<Value, Key extends keyof Value> = (
-      Grok.If.IsUndefined<
-        Value[Key],
-        Grok.Not<
-          Grok.Value.IsExactly<
-            // Removed undefined from all values and picked the keys value.
-            // In theory, if this is `?` then undefined should still be here.
-            Grok.Record.RemoveValue<Value, undefined>[Key],
-            // When compared to the keys value without undefined.
-            // There should not be a match, meaning the key is flagged with optional (`?`).
-            Grok.Union.RemoveValue<Value[Key], undefined>
+      Grok.Not<
+        Grok.Value.IsExactly<
+          // Removed undefined from all possible values at the given key, then pick its value from the record.
+          // In theory, if this is `?` then undefined should still be here because we did not remove the optional flag.
+          Grok.Record.RemoveValue<
+            // There is a case where the value in the record can be `any` and this causes faults.
+            // So we can replace all `any` values with `never` for this check.
+            Grok.Record.ReplaceAny<Value, never>,
+            undefined
+          >[Key],
+          // When compared to the value at the given key with undefined removed explicitly.
+          // This should indicate that the key is marked with optional.
+          Grok.Union.RemoveValue<
+            // Same reason we are replacing `any` in the above.
+            Grok.Record.ReplaceAny<Value, never>[Key],
+            undefined
           >
-        >,
-        false
+        >
       >
     );
   }
