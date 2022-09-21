@@ -69,6 +69,13 @@ export namespace Grok {
     );
 
     /**
+     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsUndefined}.
+     */
+    export type IsUndefined<Value, Then, Else> = (
+      Grok.If<Grok.Value.IsUndefined<Value>, Then, Else>
+    );
+
+    /**
      * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsBoolean}.
      */
     export type IsBoolean<Value, Then, Else> = (
