@@ -278,6 +278,18 @@ export namespace Grok {
     );
 
     /**
+     * Check that {@link Value} is `undefined`.
+     */
+    export type IsUndefined<Value> = (
+      Grok.And<[
+        Grok.Not<Grok.Value.IsAny<Value>>,
+        Grok.Not<Grok.Value.IsNever<Value>>,
+        Grok.Not<Grok.Value.IsUnknown<Value>>,
+        Grok.Union.Has<Value, undefined>
+      ]>
+    );
+
+    /**
      * Check the {@link Value} is the `boolean` type.
      *
      * This will return `false` for both `true` and `false`, this needs to be the union of both.
