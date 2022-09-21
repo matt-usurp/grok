@@ -115,7 +115,7 @@ export namespace Test_Grok {
       type Case_WithNever = Grok.Assert.IsFalse<Grok.If.IsUndefined<never, true, false>>;
       type Case_WithUnknown = Grok.Assert.IsFalse<Grok.If.IsUndefined<unknown, true, false>>;
       type Case_WithUndefined = Grok.Assert.IsTrue<Grok.If.IsUndefined<undefined, true, false>>;
-      type Case_WithVoid = Grok.Assert.IsFalse<Grok.If.IsUndefined<void, true, false>>;
+      type Case_WithVoid = Grok.Assert.IsTrue<Grok.If.IsUndefined<void, true, false>>;
 
       type Case_WithBoolean = Grok.Assert.IsFalse<Grok.If.IsUndefined<boolean, true, false>>;
       type Case_WithBooleanTrue = Grok.Assert.IsFalse<Grok.If.IsUndefined<true, true, false>>;
