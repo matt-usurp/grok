@@ -332,6 +332,81 @@ export namespace Test_Grok {
       );
     }
   }
+
+  /**
+   * {@link Grok.Record}
+   */
+  export namespace Test_Record {
+    /**
+     * {@link Grok.Record.RemoveValue}
+     */
+    export namespace Test_Record_RemoveValue {
+      export type Assert_WithoutValue = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Record.RemoveValue<{ a: 1 }, 2>,
+            { a: 1 }
+          >
+        >
+      );
+
+      export type Assert_WithValue = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Record.RemoveValue<{ a: 1 | 2 }, 2>,
+            { a: 1 }
+          >
+        >
+      );
+
+      export type Assert_WithOptionalFlag_ValueStillHasUndefined = (
+        Grok.Assert<
+          Grok.Record.RemoveValue<{ a?: 1 }, undefined>['a'],
+          undefined
+        >
+      );
+    }
+
+    /**
+     * {@link Grok.Record.IsKeyOptional}
+     */
+    export namespace Test_Record_IsKeyOptional {
+      type Assert_WithRecord_HasNoOptionalFlag_ReturnFalse = (
+        Grok.Assert.IsFalse<
+          Grok.Record.IsKeyOptional<
+            { a: true },
+            'a'
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasNoOptionalFlag_KeyValueHasUndefined_ReturnFalse = (
+        Grok.Assert.IsFalse<
+          Grok.Record.IsKeyOptional<
+            { a: true | undefined },
+            'a'
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasOptionalFlag_ReturnTrue = (
+        Grok.Assert.IsTrue<
+          Grok.Record.IsKeyOptional<
+            { a?: true },
+            'a'
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasOptionalFlag_KeyValueHasUndefined_ReturnTrue = (
+        Grok.Assert.IsTrue<
+          Grok.Record.IsKeyOptional<
+            { a?: true | undefined },
+            'a'
+          >
+        >
+      );
+    }
   }
 
   /**
