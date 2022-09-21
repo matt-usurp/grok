@@ -4,26 +4,26 @@ export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
 
 /**
- * A utility to add `undefined` as a possible value to {@link T}.
+ * A utility to add `undefined` as a possible value to {@link Value}.
  */
-export type Maybe<T> = T | undefined;
+export type Maybe<Value> = Value | undefined;
 
 /**
- * A utility to add `null` as a possible value to {@link T}.
+ * A utility to add `null` as a possible value to {@link Value}.
  */
-export type Nullable<T> = T | null;
+export type Nullable<Value> = Value | null;
 
 /**
- * A utility to remove `readonly` modifiers from the given {@link T}.
+ * A utility to remove `readonly` modifiers from the given {@link Value}.
  */
-export type Mutable<T extends Grok.Constraint.ObjectLike> = {
-  -readonly [P in keyof T]: T[P];
+export type Mutable<Value extends Grok.Constraint.ObjectLike> = {
+  -readonly [P in keyof Value]: Value[P];
 }
 
 /**
- * A function that when called returns the type {@link T}.
+ * A function that when called returns the type {@link Value}.
  */
-export type Provider<T> = () => T;
+export type Provider<Value> = () => Value;
 
 /**
  * Grok is an expressive series of type helpers and utilities.
@@ -154,9 +154,9 @@ export namespace Grok {
     export type FunctionLike = (...args: any) => any;
 
     /**
-     * A constraint type that requires the value be an array with one (or more) {@link T}
+     * A constraint type that requires the value be an array with one (or more) {@link Value}
      */
-    export type ArrayWithOneOrMore<T> = [T, ...T[]];
+    export type ArrayWithOneOrMore<Value> = [Value, ...Value[]];
   }
 
   // --
@@ -213,9 +213,9 @@ export namespace Grok {
 
   export namespace Union {
     /**
-     * Convert the given {@link T} (`any[]`) to a union of its values.
+     * Convert the given {@link Value} (`any[]`) to a union of its values.
      */
-    export type FromArray<T extends any[]> = T[number];
+    export type FromArray<Value extends any[]> = Value[number];
 
     /**
      * Check the {@link Union} contains the {@link Value}.
@@ -241,12 +241,22 @@ export namespace Grok {
    */
   export namespace Record {
     /**
-     * Remove the type {@link V} from the record type {@link T}.
+     * Remove the type {@link Value} from the the possible values against each key in type {@link Target}.
      */
-    export type RemoveValue<T, V> = {
-      [K in keyof T]: Grok.Union.RemoveValue<T[K], V>;
+    export type RemoveValue<Target, Value> = {
+      [K in keyof Target]: Grok.Union.RemoveValue<Target[K], Value>;
     };
 
+    /**
+     * Replace the type `any` with {@link Value} for the given {@link Target}.
+     */
+    export type ReplaceAny<Target, Value> = {
+      [K in keyof Target]: Grok.If.IsAny<Target[K], Value, Target[K]>;
+    };
+
+    /**
+     * Check if the {@link Key} is marked as optional (`?`) within {@link Value}.
+     */
     export type IsKeyOptional<Value, Key extends keyof Value> = (
       Grok.If.IsUndefined<
         Value[Key],

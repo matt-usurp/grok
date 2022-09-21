@@ -368,6 +368,38 @@ export namespace Test_Grok {
     }
 
     /**
+     * {@link Grok.Record.ReplaceAny}
+     */
+    export namespace Test_Record_ReplaceAny {
+      type Assert_WithRecord_HasNoAny = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Record.ReplaceAny<{ a: 1; b: 2 }, undefined>,
+            { a: 1; b: 2 }
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasSingleAny = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Record.ReplaceAny<{ a: any; b: 2 }, undefined>,
+            { a: undefined; b: 2 }
+          >
+        >
+      );
+
+      type Assert_WithRecord_HasMultipleAny = (
+        Grok.Assert.IsTrue<
+          Grok.Value.IsExactly<
+            Grok.Record.ReplaceAny<{ a: any; b: any; c: 3 }, undefined>,
+            { a: undefined; b: undefined; c: 3 }
+          >
+        >
+      );
+    }
+
+    /**
      * {@link Grok.Record.IsKeyOptional}
      */
     export namespace Test_Record_IsKeyOptional {
