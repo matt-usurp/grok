@@ -225,6 +225,16 @@ export namespace Grok {
         ? true
         : false
     )
+
+    /**
+     * Remove the {@link Value} from the {@link Union}.
+     */
+    export type RemoveValue<Union, Value> = (
+      Union extends Value
+        ? never
+        : Union
+    );
+  }
   }
 
   /**
