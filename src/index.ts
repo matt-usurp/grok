@@ -1,9 +1,7 @@
-import { GrokInherit } from './core/inherit';
 export { never } from './core/assert-never';
 export { noop } from './core/function';
 export { okey, okv, okvr } from './core/object';
 export { provide, union } from './core/value';
-export { GrokInherit };
 
 /**
  * A utility to add `undefined` as a possible value to {@link T}.
@@ -32,89 +30,6 @@ export type Provider<T> = () => T;
  */
 export namespace Grok {
   // --
-  // -- Inherit
-  // --
-
-  /**
-   * A value type for a symbol that represents the {@link GrokInherit} action.
-   */
-  export type Inherit = typeof GrokInherit;
-
-  export namespace Inherit {
-    /**
-     * A {@link Grok.Merge} that will acknowledge {@link Grok.Inherit}.
-     *
-     * Firstly, {@link A} and {@link B} must be the same shape.
-     * When a value within either {@link A} or {@link B} is {@link Grok.Inherit} (or is the `any` type) then the other is picked.
-     * When values are both present then {@link A} takes priority over {@link B}.
-     */
-    export type Merge<A extends Grok.Constraint.ObjectLike, B extends Grok.Core.ConstraintFrom<A>> = (
-      Grok.If<
-        Grok.Or<[
-          Grok.Value.IsAny<A>,
-          Grok.Value.IsAny<B>,
-        ]>,
-        Grok.If.IsAny<A, B, A>,
-        {
-          [K in keyof A]: (
-            Grok.If<
-              Grok.Or<[
-                Grok.Value.IsInherit<Grok.Inherit.Normalise<A[K]>>,
-                Grok.Value.IsInherit<Grok.Inherit.Normalise<B[K]>>,
-              ]>,
-              Grok.If.IsInherit<
-                Grok.Inherit.Normalise<A[K]>,
-                Grok.Inherit.Normalise<B[K]>,
-                Grok.Inherit.Normalise<A[K]>
-              >,
-              Grok.Inherit.Normalise<A[K]>
-            >
-          )
-        }
-      >
-    );
-
-    /**
-     * A {@link Grok.Union} that will acknowledge {@link Grok.Inherit}.
-     *
-     * When a value within either {@link A} or {@link B} is {@link Grok.Inherit} (or is the `any` type) then the other is picked.
-     * When both values are {@link Grok.Inherit} then {@link Grok.Inherit} is returned.
-     * When both values are provided then a normal union takes place.
-     */
-    export type Union<A, B> = (
-      Grok.If<
-        Grok.Or<[
-          Grok.Value.IsInherit<Grok.Inherit.Normalise<A>>,
-          Grok.Value.IsInherit<Grok.Inherit.Normalise<B>>,
-        ]>,
-        Grok.If.IsInherit<
-          Grok.Inherit.Normalise<A>,
-          Grok.Inherit.Normalise<B>,
-          Grok.Inherit.Normalise<A>
-        >,
-        Grok.Union<A, B>
-      >
-    );
-
-    /**
-     * Normalise the given {@link Value} to be {@link Grok.Inherit}.
-     *
-     * This essentially removes cases where the `any` type might be used and cause conflict.
-     * This value is converted to {@link Grok.Inherit} unless its something else.
-     */
-    export type Normalise<Value> = (
-      Grok.If<
-        Grok.Or<[
-          Grok.Value.IsAny<Value>,
-          Grok.Value.IsInherit<Value>,
-        ]>,
-        Grok.Inherit,
-        Value
-      >
-    );
-  }
-
-  // --
   // -- Logic & Control Flow
   // --
 
@@ -132,13 +47,6 @@ export namespace Grok {
   );
 
   export namespace If {
-    /**
-     * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsInherit}.
-     */
-    export type IsInherit<Value, Then, Else> = (
-      Grok.If<Grok.Value.IsInherit<Value>, Then, Else>
-    );
-
     /**
      * A syntax shortcut for {@link Grok.If} where {@link Value} is passed through {@link Grok.Value.IsAny}.
      */
@@ -307,13 +215,6 @@ export namespace Grok {
    * Value validators and check helpers.
    */
   export namespace Value {
-    /**
-     * Check that {@link Value} is the {@link Grok.Inherit} type.
-     */
-    export type IsInherit<Value> = (
-      Grok.If.IsAny<Value, false, Grok.Value.IsExactly<Value, Grok.Inherit>>
-    );
-
     /**
      * Check that {@link A} extends {@link B}.
      */
