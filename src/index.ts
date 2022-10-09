@@ -137,13 +137,6 @@ export namespace Grok {
 
   export namespace Constraint {
     /**
-     * A constraint type that conforms to anything.
-     *
-     * @deprecated
-     */
-    export type Anything = any;
-
-    /**
      * A constraint type that conforms to any object like type or value.
      */
     export type ObjectLike = Record<string, unknown>;
