@@ -2,67 +2,53 @@
 
 > An expressive series of utilities for language like types.
 
-The type meta programming within `TypeScript` can be very powerful, especially if you treat it as a "meta language" on top of your code.
-The goal of `Grok` is to introduce the "language" element that could exist by providing a series of pre-defined type helpers that function similar to language syntax.
+The meta programming within `TypeScript` using types can be very powerful and extremely helpful for enforcing strong types and safer builds.
+The goal of `Grok` is to remove some of the cognitive load that comes with trying to express these types by introducing a more verbose language syntax (as helpers).
 
 ## Example
 
-Grok in its simplist form is about abstract some complexities around nesting `extends`.
-For example we have a simple `if statement` expressed in vanilla types and `Grok`.
+At core of `Grok` is an abstraction around the `extends` expression to introduce the concept of an `if-statement`.
+With only this `Grok` has grown to be extremely powerful and diverse in its offering.
+
+In simple cases `Grok` might be considered over complicated but it really shines in complex type logic that changes depending on given inputs.
 
 ```ts
-type MyValue = SomeInput extends 'foobar' ? SomeTrue : SomeFalse;
-type MyValue = Grok.If<Grok.Value.IsExtending<SomeInput, 'foobar'>, SomeTrue, SomeFalse>;
-```
-
-This example seems trivial and maybe not needed, the added bonus here is the verbosity of `Grok` type heleprs that literally read what the purpose of this statement is meant for.
-Now, complexity is added as more `extends` are needed.
-
-```ts
-type MyValue = (
-  SomeInput extends 'foobar'
-    ? (
-      AnotherInput extends 'worldbar'
-        ? SomeTrue
-        : SomeFalse
-    )
-    : SomeFalse
-);
-
-type MyValue = (
+type MyValue<T> = (
   Grok.If<
-    Grok.Value.IsExtending<SomeInput, 'foobar'>,
+    Grok.Value.IsExtending<T, 'foo'>,
+    'its foo',
     Grok.If<
-      Grok.Value.IsExtending<AnotherInput, 'worldbar'>,
-      SomeTrue,
-      SomeFalse
+      Grok.Value.IsExtending<T, 'bar'>,
+      'its bar',
+      'its something'
     >,
-    SomeFalse,
   >
 );
-
-// or
-
-type MyValue = (
-  Grok.If<
-    Grok.And<
-      Grok.Value.IsExtending<SomeInput, 'foobar'>,
-      Grok.Value.IsExtending<AnotherInput, 'worldbar'>
-    >
-    SomeTrue,
-    SomeFalse
-  >
 )
 ```
 
-## Syntax Helpers
+More logical helpers and value comparitors are available:
+
+## Logic & Expressions
 
 - `Grok.If`
 - `Grok.And`
 - `Grok.Or`
 - `Grok.Not`
+- `Grok.Has`
 
-## Value Helpers
+## Type Helpers
+
+- `Grok.Merge`
+- `Grok.Union`
+- `Grok.Union.FromArray`
+- `Grok.Union.RemoveValue`
+- `Grok.Union.Has`
+- `Grok.Record.RemoveValue`
+- `Grok.Record.ReplaceAny`
+- `Grok.Record.IsKeyOptional`
+
+## Value Comparisons
 
 - `Grok.Value.IsExtending`
 - `Grok.Value.IsExactly`
@@ -74,11 +60,11 @@ type MyValue = (
 - `Grok.Value.IsTrue`
 - `Grok.Value.IsFalse`
 
-## Constraint Helpers
+## Constraints
 
 - `Grok.Constraint.ObjectLike`
 - `Grok.Constraint.FunctionLike`
-- `Grok.Constraint.ArrayWithOneOrMore`
+- `Grok.Constraint.ArrayWithOneOrMore<T>`
 
 ## Utility Helpers
 
@@ -99,6 +85,8 @@ type MyValue = (
 
 ## Testing Helpers
 
+- `fn()`
+- `instance()`
 - `partial()` a `Partial<T>` to `T` disguise
 
 ## Testing Helpers (types)
