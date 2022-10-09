@@ -79,6 +79,7 @@ build.compile.clean:
 build.package:
 	cp package.json ${DIR_WORKSPACE}/package.json
 	cp package-lock.json ${DIR_WORKSPACE}/package-lock.json
+	cp README.md ${DIR_WORKSPACE}/README.md
 
 build.package.verify:
 	test -f ${DIR_WORKSPACE}/package.json
