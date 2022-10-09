@@ -64,18 +64,21 @@ type MyValue = (
 
 ## Value Helpers
 
-- `Grok.Value.IsAny`
-- `Grok.Value.IsNever`
 - `Grok.Value.IsExtending`
 - `Grok.Value.IsExactly`
+- `Grok.Value.IsAny`
+- `Grok.Value.IsNever`
+- `Grok.Value.IsUnknown`
+- `Grok.Value.IsUndefined`
+- `Grok.Value.IsBoolean`
 - `Grok.Value.IsTrue`
 - `Grok.Value.IsFalse`
 
 ## Constraint Helpers
 
-- `Grok.Constraint.ObjectLike` (defined as `Record<string, unknown>`)
-- `Grok.Constraint.FunctionLike` (defined as `(...args: any[]) => any`)
-- `Grok.Constraint.Anything` (defined as alias for `any`)
+- `Grok.Constraint.ObjectLike`
+- `Grok.Constraint.FunctionLike`
+- `Grok.Constraint.ArrayWithOneOrMore`
 
 ## Utility Helpers
 
@@ -100,9 +103,9 @@ type MyValue = (
 
 ## Testing Helpers (types)
 
-- `Grok.Testing.Assert` for asserting values.
-- `Grok.Testing.AssertTrue` for asserting a value is true.
-- `Grok.Testing.AssertFalse` for asserting a value is false.
+- `Grok.Assert` for asserting values.
+- `Grok.Assert.IsTrue` for asserting a value is true.
+- `Grok.Assert.IsFalse` for asserting a value is false.
 
 # Documentation
 
