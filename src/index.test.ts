@@ -284,7 +284,7 @@ export namespace Test_Grok {
      * {@link Grok.Union.Has}
      */
     export namespace Test_Union_Has {
-      type Assert_WithoutValue = (
+      type Case_WithoutValue = (
         Grok.Assert.IsFalse<
           Grok.Value.IsTrue<
             Grok.Union.Has<1 | 2, 3>
@@ -292,7 +292,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithValueExact = (
+      type Case_WithValueExact = (
         Grok.Assert.IsTrue<
           Grok.Value.IsTrue<
             Grok.Union.Has<1, 1>
@@ -300,7 +300,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithValue = (
+      type Case_WithValue = (
         Grok.Assert.IsTrue<
           Grok.Value.IsTrue<
             Grok.Union.Has<1 | 2, 2>
@@ -313,7 +313,7 @@ export namespace Test_Grok {
      * {@link Grok.Union.FromArray}
      */
     export namespace Test_Union_RemoveValue {
-      type Assert_WithoutValue = (
+      type Case_WithoutValue = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Union.RemoveValue<1 | 2, 3>,
@@ -322,7 +322,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithValue = (
+      type Case_WithValue = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Union.RemoveValue<1 | 2, 2>,
@@ -341,7 +341,7 @@ export namespace Test_Grok {
      * {@link Grok.Record.RemoveValue}
      */
     export namespace Test_Record_RemoveValue {
-      export type Assert_WithoutValue = (
+      export type Case_WithoutValue = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Record.RemoveValue<{ a: 1 }, 2>,
@@ -350,7 +350,7 @@ export namespace Test_Grok {
         >
       );
 
-      export type Assert_WithValue = (
+      export type Case_WithValue = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Record.RemoveValue<{ a: 1 | 2 }, 2>,
@@ -359,7 +359,7 @@ export namespace Test_Grok {
         >
       );
 
-      export type Assert_WithOptionalFlag_ValueStillHasUndefined = (
+      export type Case_WithOptionalFlag_ValueStillHasUndefined = (
         Grok.Assert<
           Grok.Record.RemoveValue<{ a?: 1 }, undefined>['a'],
           undefined
@@ -371,7 +371,7 @@ export namespace Test_Grok {
      * {@link Grok.Record.ReplaceAny}
      */
     export namespace Test_Record_ReplaceAny {
-      type Assert_WithRecord_HasNoAny = (
+      type Case_WithRecord_HasNoAny = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Record.ReplaceAny<{ a: 1; b: 2 }, undefined>,
@@ -380,7 +380,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasSingleAny = (
+      type Case_WithRecord_HasSingleAny = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Record.ReplaceAny<{ a: any; b: 2 }, undefined>,
@@ -389,7 +389,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasMultipleAny = (
+      type Case_WithRecord_HasMultipleAny = (
         Grok.Assert.IsTrue<
           Grok.Value.IsExactly<
             Grok.Record.ReplaceAny<{ a: any; b: any; c: 3 }, undefined>,
@@ -403,7 +403,7 @@ export namespace Test_Grok {
      * {@link Grok.Record.IsKeyOptional}
      */
     export namespace Test_Record_IsKeyOptional {
-      type Assert_WithRecord_HasNoOptionalFlag_ReturnFalse = (
+      type Case_WithRecord_HasNoOptionalFlag_ReturnFalse = (
         Grok.Assert.IsFalse<
           Grok.Record.IsKeyOptional<
             { a: true },
@@ -412,7 +412,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasNoOptionalFlag_KeyValueHasUndefined_ReturnFalse = (
+      type Case_WithRecord_HasNoOptionalFlag_KeyValueHasUndefined_ReturnFalse = (
         Grok.Assert.IsFalse<
           Grok.Record.IsKeyOptional<
             { a: true | undefined },
@@ -421,7 +421,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasOptionalFlag_ReturnTrue = (
+      type Case_WithRecord_HasOptionalFlag_ReturnTrue = (
         Grok.Assert.IsTrue<
           Grok.Record.IsKeyOptional<
             { a?: true },
@@ -430,7 +430,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasOptionalFlag_KeyValueHasUndefined_ReturnTrue = (
+      type Case_WithRecord_HasOptionalFlag_KeyValueHasUndefined_ReturnTrue = (
         Grok.Assert.IsTrue<
           Grok.Record.IsKeyOptional<
             { a?: true | undefined },
@@ -439,7 +439,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasNoOptionalFlag_KeyValueHasAny_ReturnTrue = (
+      type Case_WithRecord_HasNoOptionalFlag_KeyValueHasAny_ReturnTrue = (
         Grok.Assert.IsFalse<
           Grok.Record.IsKeyOptional<
             { a: any },
@@ -448,7 +448,7 @@ export namespace Test_Grok {
         >
       );
 
-      type Assert_WithRecord_HasOptionalFlag_KeyValueHasAny_ReturnTrue = (
+      type Case_WithRecord_HasOptionalFlag_KeyValueHasAny_ReturnTrue = (
         Grok.Assert.IsTrue<
           Grok.Record.IsKeyOptional<
             { a?: any },
