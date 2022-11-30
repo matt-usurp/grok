@@ -5,14 +5,14 @@
     "strict": true,
     "alwaysStrict": true,
 
-    "declaration": false,
-
     "allowJs": false,
     "checkJs": false,
 
     "sourceMap": true,
+    "declaration": false,
     "removeComments": false,
     "stripInternal": true,
+    "importHelpers": true,
 
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
